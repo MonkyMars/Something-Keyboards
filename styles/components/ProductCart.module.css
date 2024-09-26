@@ -1,0 +1,99 @@
+.productCart {
+  min-width: 80%;
+  position: relative;
+  padding: 1em;
+  box-sizing: border-box;
+  margin: 1em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.productCart div {
+  padding: 1em;
+  box-sizing: border-box;
+  position: relative;
+  font-family: var(--font-product);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  top: -35px;
+}
+
+.productCart label:first-child {
+  background-color: #000;
+  color: #fff;
+  width: 60%;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.productCart label:nth-child(2) {
+  background-color: #fff;
+  width: 50px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.productCart label {
+  margin-left: 10px;
+}
+
+.productCart h2, .productCart p {
+  text-align: center;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+.productCart img {
+  border-radius: 10px;
+}
+
+.productCart .buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+  left: -10px;
+  align-items: center;
+  position: absolute;
+}
+
+/* Responsive Styles */
+@media screen and (min-width: 768px) {
+  .productCart {
+    width: 48%;
+    flex-direction: row;
+    margin: 1em;
+  }
+
+  .productCart div {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .productCart h2, .productCart p {
+    text-align: left;
+    left: 0;
+  }
+
+  .productCart .buttons {
+    position: absolute;
+    top: 165px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+}

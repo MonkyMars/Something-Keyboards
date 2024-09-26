@@ -1,0 +1,36 @@
+.header {
+  color: var(--font-color);
+  font-size: larger;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-header);
+}
+
+.header h1 {
+  font-size: 4rem;
+}
+
+.header h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0.5rem 0;
+}
+
+.keyboards{
+  font-size: 2rem;
+  margin: 1rem;
+  text-decoration: underline;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.slider{
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  grid-gap: 1em;
+  padding: 1em;
+  box-sizing: border-box;
+  overflow-x: auto;
+}

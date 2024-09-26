@@ -1,0 +1,69 @@
+.Nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between children to position items correctly */
+  min-height: 60px;
+  max-width: 100%;
+  padding: 0 20px; /* Add some padding for spacing */
+}
+
+.Nav h2 {
+  margin: 0; /* Remove default margin */
+  font-family: var(--font-nav);
+  font-size: 1.5em; /* Adjust font size as needed */
+}
+
+.Nav ul {
+  display: flex;
+  justify-content: center; /* Center the pages */
+  gap: 15px;
+  flex-grow: 1; /* Allow the ul to grow and fill space */
+  font-family: var(--font-nav);
+}
+
+.Nav ul li {
+  list-style: none;
+  margin: 1em;
+  font-size: 1.1em;
+  cursor: pointer;
+  padding: 0.5em;
+  box-sizing: border-box;
+  &:hover {
+    text-decoration: underline var(--button-color);
+  }
+}
+
+.Nav ul li a {
+  text-decoration: none;
+  color: var(--nav-color);
+  cursor: pointer;
+}
+
+.Nav .icons {
+  display: flex;
+  align-items: center;
+  grid-gap: 2em;
+}
+
+.Nav .icons a {
+  position: relative; /* Position relative to control pseudo-element */
+  padding-bottom: 2px; /* Space for the border */
+  border-bottom: 2px solid transparent; /* Initial state of the border */
+  transition: border-color 0.2s; /* Transition the border color */
+}
+
+.Nav .icons a:hover {
+  border-bottom: 2px solid var(--button-color); /* Change the border color on hover */
+}
+
+.Nav .icons input{
+  position: absolute;
+  right: 11%;
+  border: none;
+  padding: 0.6em 1em;
+  border-radius: 15px;
+  transition: width 0.7s ease-out;
+  &:focus{
+    outline: 2px solid var(--button-color);
+  }
+}
