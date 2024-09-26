@@ -29,7 +29,7 @@
   display: flex;
   flex-wrap: nowrap;
   width: 100%;
-  grid-gap: 1em;
+  grid-gap: 3.5em;
   padding: 1em;
   box-sizing: border-box;
   overflow-x: auto;
