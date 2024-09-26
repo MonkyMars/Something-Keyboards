@@ -1,51 +1,65 @@
+/* General settings */
 .product {
   position: relative;
-  max-width: 45%;
-  width: fit-content;
+  max-width: 60%;
+  width: auto;
   padding: 2em;
   box-sizing: border-box;
   font-family: var(--font-product);
-  margin-left: 3em;
+  margin: 0 auto;
   background-color: var(--secondary);
   border-radius: 15px;
-  top: 7%;
 }
-.product div{
+
+.product div {
   display: flex;
-  max-width: 80%;
-  position: relative;
-  & > img{
-    border-radius: 15px;
-    margin: 1em;
-  }
-  & > p{
-    max-width: 80%;
-    position: relative;
-    font-size: 1.1em;
-  }
+  flex-wrap: wrap;
+  gap: 1em; 
+  align-items: center;
+  justify-content: center;
 }
-.aside{
-  max-width: 400px;
+
+.product div img {
+  border-radius: 15px;
+  margin: 1em 0;
+  max-width: 100%; 
+  height: auto;
+}
+
+.product div p {
+  max-width: 100%;
+  font-size: 1.1em;
+  line-height: 1.5;
+  text-align: justify; 
+}
+
+.aside {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
-  right: 20%;
-  top: 50%;
+  position: relative;
   transform: translateY(-50%);
   background-color: aliceblue;
-  width: 350px;
-  height: 600px;
+  max-width: 350px;
+  height: auto;
+  padding: 2em;
+  box-sizing: border-box;
   border-radius: 15px;
   font-family: var(--font-nav);
 }
 
-.aside h2{
+.aside h2 {
   font-size: 2em;
+  margin-bottom: 1em;
 }
 
-.aside button{
-  position: absolute;
+.aside p {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+
+.aside button {
   margin-top: 20px;
   width: 80%;
   background-color: var(--button-color);
@@ -56,15 +70,54 @@
   border-radius: 15px;
   font-family: var(--font-product);
   cursor: pointer;
-  transition: all 1s;
+  transition: all 0.3s ease; /* Smooth transition */
   bottom: 35px;
-  &:hover{
-    transform: translateY(-2px);
+}
+
+.aside button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Main layout grid */
+.main {
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 400px; /* Side-by-side layout for larger screens */
+  gap: 1em;
+  align-items: center;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 1080px) {
+  .product {
+    max-width: 95%;
+    width: 100%;
+    padding: 1.5em;
+    margin: 0 auto;
+    top: 10%; /* Adjusted for smaller screens */
+  }
+
+  .product div {
+    display: block; /* Stack content vertically */
+    padding: 1em;
+    text-align: center;
+  }
+
+  .product div img {
+    width: 90%; /* Make image responsive */
+    margin: 0 auto;
   }
 }
 
-.main{
-  width: 100%;
-  height: 100%;
-  display: grid;
+@media screen and (max-width: 768px) {
+  .product {
+    padding: 1em;
+    top: 0; /* Further adjustments for mobile */
+  }
+
+  .main {
+    grid-template-columns: 1fr; /* Single-column layout */
+  }
 }
