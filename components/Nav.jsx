@@ -49,6 +49,7 @@ export default function Nav() {
             onClick={icon.alt === "Search" ? toggleSearch : undefined}
           >
             <Image
+              priority
               src={icon.src}
               alt={icon.alt}
               width={30}
