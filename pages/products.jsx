@@ -16,9 +16,9 @@ const Products = () => {
     size: { value: ''},
   })
 
-  React.useEffect(() => {
-    console.log(filters)
-  }, [filters]);
+  // React.useEffect(() => {
+  //   console.log(filters)
+  // }, [filters]);
 
   return (
     <>
@@ -54,8 +54,8 @@ const Products = () => {
           </select>
         </div>  
         <div className={styles.slider}>
-          {products.map((product) => (
-            <Product key={product.id} product={product} />
+          {products.map((product, index) => (
+            <Product key={product.id || index} product={product} />
           ))}
         </div>
       </main>
