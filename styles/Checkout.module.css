@@ -1,0 +1,106 @@
+.checkout{
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  place-self: center;
+  align-items: center;
+  font-family: var(--font-nav);
+  border: 1px solid;
+  padding: 2em;
+  border-radius: 15px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.checkout button{
+  margin-top: 20px;
+  width: 80%;
+  background-color: var(--button-color);
+  border: none;
+  padding: 0.5em 1em;
+  color: #fff;
+  font-size: 1em;
+  border-radius: 15px;
+  font-family: var(--font-product);
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition */
+  bottom: 35px;
+  &:disabled{
+    background-color: var(--disabled);
+  }
+}
+
+.main{
+  display: grid;
+  position: relative;
+}
+
+.checkout .inputBox{
+  display: flex;
+  flex-direction: column;
+  padding: 0.6em 0;
+}
+
+.checkout .inputBox input{
+  margin: 0.3em;
+  display: flex;
+  width: 300px;
+  max-width: 95%;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  font-family: var(--font-product);
+  &:focus{
+    outline: 3px solid var(--secondary);
+  }
+}
+
+.deliveryBox{
+  min-width: 150px;
+  max-width: 150px;
+  height: 150px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1em;
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  transition: border 0.25s;
+  transition-delay: 0.05s;
+  cursor: pointer;
+  & > label:first-child{
+    font-size: 1.1em;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  & > label:nth-child(2) {
+    margin: 0.5em;
+    cursor: pointer;
+    top: 10px;
+    position: relative;
+    font-size: 0.8em;
+  }
+  & > label:nth-child(3) {
+    position: absolute;
+    bottom: 5px;
+    cursor: pointer;
+    font-size: 0.85em;
+  }
+}
+
+.deliveryOptionsSlider{
+  width: 100%;
+  display: flex;
+  grid-gap: 20px;
+  overflow: hidden;
+  justify-content: space-between;
+}
+
+.checkout .deliveryText{
+  margin: 1em 0;
+}

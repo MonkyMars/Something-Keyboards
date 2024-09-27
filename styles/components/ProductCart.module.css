@@ -21,7 +21,8 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  top: -35px;
+  top: -80px;
+  justify-content: flex-start;
 }
 
 .productCart label:first-child {
@@ -63,10 +64,8 @@
 
 .productCart .buttons {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: flex-start;
   margin-top: 10px;
-  left: -10px;
   align-items: center;
   position: absolute;
 }
@@ -93,7 +92,8 @@
     position: absolute;
     top: 165px;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     width: 100%;
   }
 }
+

@@ -55,7 +55,7 @@ export const GlobalProvider = ({ children }) => {
           name: "Something Flux",
           description:
             "Something Flux is where precision meets fluidity. Designed for both gamers and creators, this keyboard adapts to your every move with seamless responsiveness. The dynamic RGB lighting enhances your experience with a flow of colors that shift in real time, while its durable mechanical switches ensure every keystroke feels satisfying and consistent. Whether you're diving into an intense gaming session or typing at lightning speed, Something Flux keeps up with your rhythm, making it the perfect blend of form and function.",
-          image: "/products/glow/Glow.webp",
+          image: "/products/flux/Flux.webp",
           price: 199.99,
           url: "/product/flux",
           dimensions: {

@@ -40,7 +40,7 @@ export default function Nav() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search..."
-          style={{ width: search ? "10%" : "0", padding: !search && "0.6em 0" }}
+          style={{ width: search ? "200px" : "0", padding: !search && "0.6em 0" }}
         />
         {icons.map((icon) => (
           <Link

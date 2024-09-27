@@ -13,26 +13,38 @@ const Cart = () => {
     total: 0.00,
   });
   const { cart } = React.useContext(GlobalContext);
-  
+  const [disabled, setDisabled] = React.useState(true);
+
+  // Update subtotal when cart changes
   React.useEffect(() => {
-    setTotals(prevTotals => {
-      const subtotal = cart.reduce((acc, subCart) => acc + subCart.price, 0);
-      return {
-        ...prevTotals,
-        subtotal,
-      };
-    });
+    const subtotal = cart.reduce((acc, subCart) => acc + subCart.price, 0);
+    setTotals((prevTotals) => ({
+      ...prevTotals,
+      subtotal,
+    }));
   }, [cart]);
+
+  // Update total when subtotal or tax changes
   React.useEffect(() => {
     const calculateTotal = (tax, subtotal) => {
-      const total = parseFloat((subtotal + (subtotal * tax / 100)).toFixed(2));
-      setTotals((prev) => ({ ...prev, total }));
+      return parseFloat((subtotal + (subtotal * tax / 100)).toFixed(2));
     };
 
-    calculateTotal(totals.tax, totals.subtotal);
-  }, [totals.tax, totals.subtotal]);
+    const newTotal = calculateTotal(totals.tax, totals.subtotal);
+    setTotals((prevTotals) => ({
+      ...prevTotals,
+      total: newTotal,
+    }));
 
-  // console.log(products)
+    setDisabled(newTotal === 0);  // Disable button if total is 0
+  }, [totals.subtotal, totals.tax]);
+
+  const handleContinue = () => {
+    if (totals.total !== 0) {
+      window.location.href = '/cart/checkout';
+    }
+  };
+
   return (
     <>
       <Head>
@@ -42,7 +54,7 @@ const Cart = () => {
       <main className={styles.main}>
         <h2 className={styles.title}>Shopping Cart</h2>
         <div className={styles.CartMain}>
-        {cart?.map((item, index) => (
+          {cart?.map((item, index) => (
             <ProductCart key={item.id || index} item={item} />
           ))}
         </div>
@@ -56,14 +68,14 @@ const Cart = () => {
           </ul>
         </div>
         <div>
-        {cart?.map((item, subIndex) => (
-          <div key={subIndex}>
-            <label key={item.id || itemIndex}>1 - {item.name}</label>
-          </div>
-        ))}
+          {cart?.map((item, subIndex) => (
+            <div key={subIndex}>
+              <label>1 - {item.name}</label>
+            </div>
+          ))}
         </div>
         <h3>Total: ${totals.total}</h3>
-        <button>Continue</button>
+        <button onClick={handleContinue} disabled={disabled}>Continue</button>
       </aside>
       <Footer />
     </>

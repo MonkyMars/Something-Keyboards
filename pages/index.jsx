@@ -17,7 +17,7 @@ const Home = () => {
       </Head>
       <Nav />
       <header className={styles.header}>
-        <h1>{'Something'}</h1>
+        <h1>Som<strong>e</strong>thin<strong>g</strong></h1>
         <h2>{'Who knows?'}</h2>
       </header>
       <main className={styles.main}>

@@ -25,8 +25,8 @@ export default function Product({ product }) {
             height={item.dimensions.height}
           />
           <div className={styles.buttons}>
+            <button>${item.price}</button>
             <button>
-              <label>{item.price}</label>
               <Image
                 src="/icons/shoppingcart_add.png"
                 alt="add to cart"

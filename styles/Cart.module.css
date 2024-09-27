@@ -52,6 +52,9 @@
   border-radius: 15px;
   font-family: var(--font-product);
   cursor: pointer;
+  &:disabled{
+    background-color: var(--disabled);
+  }
 }
 
 .Aside h3 {

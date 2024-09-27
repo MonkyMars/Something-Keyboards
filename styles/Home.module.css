@@ -17,7 +17,9 @@
   font-weight: 400;
   margin: 0.5rem 0;
 }
-
+.header strong{
+  color: var(--button-color)
+}
 .keyboards{
   font-size: 2rem;
   margin: 1rem;
