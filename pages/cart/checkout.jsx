@@ -61,9 +61,9 @@ export default function Checkout() {
           </div>
           <label className={styles.deliveryText}>Delivery:</label>
           <div className={styles.deliveryOptionsSlider}>
-            {delivery_options.map((option) => (
+            {delivery_options.map((option, index) => (
               <div
-                key={option.id}
+                key={option.id || index}
                 className={styles.deliveryBox}
                 style={{ border: formData.delivery_option === option.id ? '3px solid #6200EA' : '3px solid #ccc' }}
                 onClick={() => handleDeliveryChange(option.id)}
