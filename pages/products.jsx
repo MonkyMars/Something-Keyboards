@@ -7,19 +7,25 @@ import Product from "../components/Product";
 import GlobalContext from '../global/GlobalContext';
 
 const Products = () => {
-  const { products, setProducts } = React.useContext(GlobalContext);
-  
+  const { products, setProducts } = React.useContext(GlobalContext)
   const [filters, setFilters] = React.useState({
     priceRange: { min: 0, max: 160, value: 160 },
     name: { value: ''},
     color: { value: ''},
     size: { value: ''},
   })
-
-  // React.useEffect(() => {
-  //   console.log(filters)
-  // }, [filters]);
-
+  const [search, setSearch] = React.useState('')
+  React.useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryValue = urlParams.get('query');
+    setSearch(queryValue)
+    if (queryValue) {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        name: { ...prevFilters.name, value: queryValue },
+      }));
+    }
+  }, [search]);
   return (
     <>
       <Head>
