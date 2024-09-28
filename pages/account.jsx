@@ -27,7 +27,23 @@ const Account = () => {
       number: '057857535684',
       icon: `/icons/banking/ideal_logo.svg`
     }],
-    delivery_addresses: [],
+    delivery_addresses: [{
+      id: 1,
+      country: 'NL',
+      city: 'The hague',
+      postal_code: '2531XG',
+      street: 'Jan de weertstraat',
+      street_number: '37'
+    },
+    {
+      id: 2,
+      country: 'NL',
+      city: 'The hague',
+      postal_code: '2553JB',
+      street: 'Gravin Othildehof',
+      street_number: '12'
+    }
+  ],
     display_mode: 0,
   });
 
@@ -86,6 +102,34 @@ const Account = () => {
                     </div>
                   )) : <label>No added payment methods</label>} 
                 </div>  
+                </>
+              )}
+              {page === 1 && (
+                <>
+                <div>
+                  <button className={styles.addAddress}>Add Address</button>
+                  {user.delivery_addresses.map((address, index) => (
+                    <div key={address.id || index} className={styles.address}>
+                      <label>Country:</label>
+                      <input value={address.country}/>
+                      <label>City:</label>
+                      <input value={address.city}/>
+                      <label>Postal code:</label>
+                      <input value={address.postal_code}/>
+                      <div>
+                        <div>
+                          <label>Street name:</label>
+                        <input value={address.street}/>
+                        </div>
+                        <div>
+                          <label>Street number:</label>
+                          <input value={address.street_number}/>
+                        </div>
+
+                      </div>
+                    </div>
+                  ))}
+                </div>
                 </>
               )}
               <button type="submit">Submit</button>
