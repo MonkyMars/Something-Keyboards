@@ -54,7 +54,6 @@
   border-bottom: 2px solid var(--button-color);
 }
 
-/* Search input */
 .Nav .icons input {
   position: absolute;
   right: 13%;
@@ -68,13 +67,10 @@
   outline: 2px solid var(--button-color);
 }
 
-/* --- Media Queries for Responsiveness --- */
-
-/* For small devices (up to 768px) */
 @media (max-width: 768px) {
   .Nav {
-    flex-direction: row; /* Stack the elements vertically */
-    padding: 15px 20px; /* Reduce padding */
+    flex-direction: row;
+    padding: 15px 20px; 
   }
 
   .Nav h2 {
@@ -87,8 +83,8 @@
   }
 
   .Nav ul li {
-    margin: 0.5em 0; /* Reduce margin for tighter spacing */
-    font-size: 1em; /* Adjust the font size */
+    margin: 0.5em 0;
+    font-size: 1em;
   }
 
   .Nav .icons {
@@ -96,8 +92,8 @@
   }
 
   .Nav .icons input {
-    position: static; /* Set search bar static */
-    width: 100%; /* Make search bar take full width */
+    position: static;
+    width: 100%;
     margin-top: 10px;
     padding: 0.5em 1em;
   }
