@@ -101,11 +101,8 @@
     }
   }
 }
-
 .section form button{
   position: relative;
-  left: 50%;
-  transform: translate(-125%, 0);  
   margin: 2em 0;
   display: flex;
   width: 300px;
@@ -119,8 +116,9 @@
   color: #fff;
   font-family: var(--font-product);
   transition: transform 0.2s;
+  margin-left: 5em;
   &:hover{
-    transform: translate(-125%, -2px)
+    transform: translateY(-2px)
   }
   &:focus{
     outline: 3px solid var(--secondary);
