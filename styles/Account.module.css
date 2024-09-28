@@ -224,3 +224,34 @@
 .addAddress{
   margin-left: 10em !important;
 }
+
+.Display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.Display div {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.Display .light-mode {
+  background-color: #fff;
+  border-radius: 10px 0 0 10px;
+}
+
+.Display .dark-mode {
+  background-color: #000;
+  border-radius: 0 10px 10px 0;
+}
+
+.Display label {
+  font-size: 16px;
+  margin-right: 10px;
+}
