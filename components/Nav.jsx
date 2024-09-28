@@ -2,11 +2,12 @@ import React from "react";
 import Link from "next/link";
 import styles from "../styles/components/Nav.module.css";
 import Image from "next/image";
+import { useRouter } from 'next/router'; 
 
 export default function Nav() {
   const [search, setSearch] = React.useState(false); // Start with false for better toggle logic
   const [searchTerm, setSearchTerm] = React.useState(""); // State for search input
-
+  const router = useRouter();  
   const pages = [
     { name: "Home", url: "/" },
     { name: "Products", url: "/products" },
@@ -21,7 +22,13 @@ export default function Nav() {
   ];
 
   const toggleSearch = () => {
-    setSearch((prev) => !prev); // Toggle search state
+    setSearch((prev) => !prev);
+  };
+
+  const handleSearch = (e) => {
+    if (e.key === 'Enter' && searchTerm) {
+      router.push(`/products?query=${searchTerm}`);
+    }
   };
 
   return (
@@ -41,6 +48,7 @@ export default function Nav() {
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search..."
           style={{ width: search ? "200px" : "0", padding: !search && "0.6em 0" }}
+          onKeyDown={handleSearch}
         />
         <div>
           
