@@ -26,7 +26,7 @@ export default function Nav() {
 
   return (
     <nav className={styles.Nav}>
-      <h2>Something</h2>
+      <h2 onClick={() => window.location.href = '/'}>Something</h2>
       <ul>
         {pages.map((page) => (
           <li key={page.url}>
@@ -42,6 +42,9 @@ export default function Nav() {
           placeholder="Search..."
           style={{ width: search ? "200px" : "0", padding: !search && "0.6em 0" }}
         />
+        <div>
+          
+        </div>
         {icons.map((icon) => (
           <Link
             key={icon.alt}
