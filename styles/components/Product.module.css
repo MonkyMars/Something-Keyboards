@@ -29,7 +29,10 @@
   font-size: 1.5em;
   text-align: center;
 }
-
+.product img:nth-child(3) {
+  border-radius: 10px;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.1);
+}
 .product p {
   width: fit-content;
   max-width: 70%;
@@ -39,7 +42,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 
 .product h3 {
   font-weight: 500;
@@ -51,7 +53,7 @@
   padding: 1em;
 }
 
-.slider{
+.slider {
   display: flex;
   grid-gap: 25px;
   flex-wrap: wrap;
@@ -61,8 +63,7 @@
   position: relative;
 }
 
-
-.filters{
+.filters {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -71,17 +72,18 @@
   box-sizing: border-box;
 }
 
-.filters input, .filters select{
+.filters input,
+.filters select {
   background-color: transparent;
   border: none;
   border-bottom: 2px solid var(--button-color);
   color: var(--font-color);
-  &:focus{
+  &:focus {
     outline: none;
   }
 }
 
-.filters div{
+.filters div {
   display: flex;
   align-items: center;
   grid-gap: 25px;
@@ -93,7 +95,7 @@
   font-family: var(--font-header);
 }
 
-.filters select option{
+.filters select option {
   background-color: transparent;
 }
 
@@ -158,7 +160,7 @@
   border-radius: 5px;
 }
 
-.buttons{
+.buttons {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -166,8 +168,7 @@
   width: 75%;
 }
 
-
-.buttons button{
+.buttons button {
   background-color: #fff;
   border: none;
   height: 40px;
@@ -182,4 +183,10 @@
   font-family: var(--font-product);
   cursor: pointer;
   font-size: 0.9em;
+}
+
+.error{
+  font-family: var(--font-header);
+  font-size: 2em;
+  border-bottom: 2px solid var(--button-color);
 }
