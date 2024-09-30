@@ -37,7 +37,7 @@ const Cart = () => {
     }));
 
     setDisabled(newTotal === 0);  // Disable button if total is 0
-  }, [totals.subtotal, totals.tax]);
+  }, [totals.subtotal, totals.tax, cart]);
 
   const handleContinue = () => {
     if (totals.total !== 0) {
@@ -63,7 +63,7 @@ const Cart = () => {
         <h2>Summary</h2>
         <div>
           <ul>
-            <li>Subtotal: ${totals.subtotal}</li>
+            <li>Subtotal: ${totals.subtotal.toFixed(2)}</li>
             <li>Tax: {totals.tax}%</li>
           </ul>
         </div>
