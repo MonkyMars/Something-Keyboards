@@ -6,37 +6,33 @@ export default function Product({ product }) {
   if (!product || product.length === 0) {
     return <p>No products available</p>;
   }
-
+  const imageSrc = product.image || '/icons/shoppingcart.png';
   return (
-    <div className={styles.productList}>
-      {product.map((item, index) => (
         <div
-          key={index || item.id}
+          key={product.id}
           className={styles.product}
-          onClick={() => (window.location.href = item.url)}
+          onClick={() => (window.location.href = product.url)}
         >
-          <h2>{item.name}</h2>
-          <p>{item.description}</p>
+          <h2>{product.name}</h2>
+          <p>{product.description}</p>
           <Image
             priority
-            src={item.image}
-            alt={item.name}
-            width={item.dimensions.width}
-            height={item.dimensions.height}
+            src={imageSrc}
+            alt={product.name || product.id}
+            width={200}
+            height={200}
           />
           <div className={styles.buttons}>
-            <button>${item.price}</button>
+            <button>${product.price}</button>
             <button>
               <Image
                 src="/icons/shoppingcart_add.png"
-                alt="add to cart"
+                alt={product.name || 'Add to cart'}
                 width={25}
                 height={25}
               />
             </button>
           </div>
         </div>
-      ))}
-    </div>
   );
 }
