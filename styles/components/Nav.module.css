@@ -32,9 +32,26 @@
 }
 
 .Nav ul li a {
+  position: relative;
   text-decoration: none;
   color: var(--nav-color);
   cursor: pointer;
+}
+
+.Nav ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--button-color);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.Nav ul li a:hover::after {
+  width: 100%;
+  left: 0;
 }
 
 .Nav .icons {
