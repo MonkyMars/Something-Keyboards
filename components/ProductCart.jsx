@@ -15,8 +15,8 @@ export default function ProductCart({ item }) {
             priority
             src={item.image}
             alt={item.name}
-            width={item.dimensions.width}
-            height={item.dimensions.height}
+            width={200}
+            height={200}
           />
           <div>
             <h2>{item.name}</h2>
