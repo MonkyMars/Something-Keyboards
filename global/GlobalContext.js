@@ -5,7 +5,6 @@ const GlobalContext = createContext();
 export const GlobalProvider = ({ children }) => {
   const [products, setProducts] = useState(
     [
-      [
         {
           id: 1,
           name: "Something Nebula",
@@ -15,8 +14,7 @@ export const GlobalProvider = ({ children }) => {
           url: "/product/nebula",
           color: 'grey'
         },
-      ],
-      [
+      
         {
           id: 2,
           name: "Something Glow",
@@ -27,8 +25,7 @@ export const GlobalProvider = ({ children }) => {
           url: "/product/glow",
           color: 'black'
         },
-      ],
-      [
+    
         {
           id: 3,
           name: "Something Pulse",
@@ -39,8 +36,6 @@ export const GlobalProvider = ({ children }) => {
           url: "/product/pulse",
           color: 'black'
         },
-      ],
-      [
         {
           id: 4,
           name: "Something Flux",
@@ -51,8 +46,6 @@ export const GlobalProvider = ({ children }) => {
           url: "/product/flux",
           color: 'grey'
         },
-      ],
-      [
         {
           id: 5,
           name: "Something Zenith",
@@ -63,7 +56,6 @@ export const GlobalProvider = ({ children }) => {
           url: "/product/zenith",
           color: 'blue'
         },
-      ],
     ]
   );
   const [cart, setCart] = useState([])
