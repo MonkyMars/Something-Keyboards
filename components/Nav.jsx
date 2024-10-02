@@ -10,7 +10,7 @@ export default function Nav() {
   const [search, setSearch] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const router = useRouter();  
-  const [displaymode, setDisplaymode] = React.useState(0)
+ 
   const pages = [
     { name: "Home", url: "/" },
     { name: "Products", url: "/products" },
