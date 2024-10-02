@@ -1,8 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import styles from "/styles/components/Product.module.css";
+import { useRouter } from "next/router";
 
 export default function Product({ product }) {
+  const router = useRouter();
+
   if (!product || product.length === 0) {
     return <p>No products available</p>;
   }
@@ -11,7 +14,7 @@ export default function Product({ product }) {
         <div
           key={product.id}
           className={styles.product}
-          onClick={() => (window.location.href = product.url)}
+          onClick={() => router.push(product.url)}
         >
           <h2>{product.name}</h2>
           <p>{product.description}</p>
