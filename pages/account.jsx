@@ -7,7 +7,8 @@ import styles from "../styles/Account.module.css";
 
 const Account = () => {
   const [page, setPage] = React.useState(0);
-  const [visible, setVisible] = React.useState(null)
+  const [visible, setVisible] = React.useState(null);
+  
   const account_settings = [
     { name: "Account Details", icon: "/icons/account.png" },
     { name: "Delivery Addresses", icon: "/icons/package.png" },
@@ -21,37 +22,17 @@ const Account = () => {
     last_name: "",
     email: "",
     password: "",
-    hashed_password: "",
-    added_payment_methods: [
-      {
-        id: 1,
-        name: "iDEAL",
-        card_holder: 'Levi Noppers',
-        number: "057857535684",
-        expires: '07/17/2028',
-        icon: `/icons/banking/ideal_logo.svg`,
-      },
-    ],
-    delivery_addresses: [
-      {
-        id: 1,
-        country: "NL",
-        city: "The Hague",
-        postal_code: "2531XG",
-        street: "Jan de Weertstraat",
-        street_number: "37",
-      },
-      {
-        id: 2,
-        country: "NL",
-        city: "The Hague",
-        postal_code: "2553JB",
-        street: "Gravin Othildehof",
-        street_number: "12",
-      },
-    ],
-    display_mode: 0,
+    added_payment_methods: [],
+    delivery_addresses: [],
+    display_mode: 1,
   });
+
+  React.useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--Bg', user.display_mode === 1 ? '#272727' : '#e3e3e3');
+    root.style.setProperty('--font-color', user.display_mode === 1 ? '#fff' : '#000');
+    root.style.setProperty('--reversed-background-color', user.display_mode === 1 ? '#000' : '#f9f9f9');
+  }, [user.display_mode]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -60,6 +41,24 @@ const Account = () => {
 
   const toggleDisplayMode = (mode) => {
     setUser((prevUser) => ({ ...prevUser, display_mode: mode }));
+  };
+
+  const handleAddAddress = () => {
+    // Add logic to save new address
+    // Example: setUser((prevUser) => ({
+    //   ...prevUser,
+    //   delivery_addresses: [...prevUser.delivery_addresses, newAddress],
+    // }));
+    setVisible(null);
+  };
+
+  const handleAddPaymentMethod = () => {
+    // Add logic to save new payment method
+    // Example: setUser((prevUser) => ({
+    //   ...prevUser,
+    //   added_payment_methods: [...prevUser.added_payment_methods, newPaymentMethod],
+    // }));
+    setVisible(null);
   };
 
   const handleSubmit = (e) => {
@@ -82,8 +81,7 @@ const Account = () => {
                 key={index}
                 onClick={() => setPage(index)}
                 style={{
-                  outline:
-                    page === index ? "2.5px solid var(--button-color)" : "none",
+                  outline: page === index ? "2.5px solid var(--button-color)" : "none",
                 }}
               >
                 <Image
@@ -132,6 +130,7 @@ const Account = () => {
                 </div>
                 <label>Password:</label>
                 <input
+                  type="password"
                   placeholder="Password..."
                   value={user.password}
                   name="password"
@@ -142,53 +141,50 @@ const Account = () => {
 
             {page === 1 && (
               <div>
-                <button className={styles.addAddress} onClick={() => setVisible(page)}>Add Address</button>
+                <button type="button" className={styles.addAddress} onClick={() => setVisible(1)}>
+                  Add Address
+                </button>
                 {user.delivery_addresses.map((address, index) => (
                   <div key={address.id || index} className={styles.address}>
                     <label>Country:</label>
-                    <input value={address.country} />
+                    <input value={address.country} readOnly />
                     <label>City:</label>
-                    <input value={address.city} />
+                    <input value={address.city} readOnly />
                     <label>Postal code:</label>
-                    <input value={address.postal_code} />
+                    <input value={address.postal_code} readOnly />
                     <div>
                       <div>
                         <label>Street name:</label>
-                        <input
-                          value={address.street}
-                          name="street"
-                          onChange={handleInputChange}
-                        />
+                        <input value={address.street} readOnly />
                       </div>
                       <div>
                         <label>Street number:</label>
-                        <input
-                          value={address.street_number}
-                          name="street_number"
-                          onChange={handleInputChange}
-                        />
+                        <input value={address.street_number} readOnly />
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
             )}
+
             {page === 2 && (
               <div className={styles.paymentMethods}>
-                <button onClick={() => setVisible(page)}>{'Add Payment Method'}</button>
+                <button type="button" onClick={() => setVisible(2)}>
+                  Add Payment Method
+                </button>
                 {user.added_payment_methods.length > 0 ? (
                   user.added_payment_methods.map((method, index) => (
                     <div key={index} className={styles.paymentMethod}>
                       <div>
-                        <Image src={'/icons/banking/ideal_logo.svg'} alt={method.name} width={45} height={45}/>
+                        <Image src={method.icon} alt={method.name} width={45} height={45} />
                         <label>{method.name}</label>
                       </div>
-                      <label>{'Card holder:'}</label>
-                      <input name="card_holder" value={method.card_holder}/>
-                      <label>{'Card Number:'}</label>
-                      <input name="card_number" value={method.number}/>
-                      <label>{'Expires:'}</label>
-                      <input name="expires" value={method.expires}/>
+                      <label>Card holder:</label>
+                      <input value={method.card_holder} readOnly />
+                      <label>Card Number:</label>
+                      <input value={method.number} readOnly />
+                      <label>Expires:</label>
+                      <input value={method.expires} readOnly />
                     </div>
                   ))
                 ) : (
@@ -196,26 +192,23 @@ const Account = () => {
                 )}
               </div>
             )}
+
             {page === 4 && (
               <div className={styles.Display}>
                 <label>
-                  Current display mode:{" "}
-                  {user.display_mode === 0 ? "Light" : "Dark"}
+                  Current display mode: {user.display_mode === 0 ? "Light" : "Dark"}
                 </label>
-                <div
-                  className="light-mode"
-                  onClick={() => toggleDisplayMode(0)}
-                >
+                <div onClick={() => toggleDisplayMode(0)}>
                   <Image
-                    src={"/icons/display.png"}
+                    src="/icons/display.png"
                     alt="Light mode icon"
                     width={35}
                     height={35}
                   />
                 </div>
-                <div className="dark-mode" onClick={() => toggleDisplayMode(1)}>
+                <div onClick={() => toggleDisplayMode(1)}>
                   <Image
-                    src={"/icons/darkmode.png"}
+                    src="/icons/darkmode.png"
                     alt="Dark mode icon"
                     width={35}
                     height={35}
@@ -223,65 +216,59 @@ const Account = () => {
                 </div>
               </div>
             )}
+
             <button type="submit">Submit</button>
           </form>
         </section>
-        {visible && <div className={styles.visible}>
+
+        {visible && (
+          <div className={styles.visible}>
             {visible === 1 && (
               <>
-              <div className={styles.title}>
-                <h2>{'Add Delivery Address'}</h2>
-                <h2 onClick={() => setVisible(null)}>{'x'}</h2>
-              </div>
+                <div className={styles.title}>
+                  <h2>Add Delivery Address</h2>
+                  <h2 onClick={() => setVisible(null)}>x</h2>
+                </div>
                 <div>
-                    <label>Country:</label>
-                    <input/>
-                    <label>City:</label>
-                    <input/>
-                    <label>Postal code:</label>
-                    <input/>
+                  <label>Country:</label>
+                  <input />
+                  <label>City:</label>
+                  <input />
+                  <label>Postal code:</label>
+                  <input />
+                  <div>
                     <div>
-                      <div>
-                        <label>Street name:</label>
-                        <input
-                          
-                        />
-                      </div>
-                      <div>
-                        <label>Street number:</label>
-                        <input
-                          
-                        />
-                      </div>
+                      <label>Street name:</label>
+                      <input />
+                    </div>
+                    <div>
+                      <label>Street number:</label>
+                      <input />
                     </div>
                   </div>
+                  <button onClick={handleAddAddress}>Save Address</button>
+                </div>
               </>
             )}
             {visible === 2 && (
-             <>
-              <div className={styles.title}>
-                <h2>{'Add Payment Method'}</h2>
-                <h2 onClick={() => setVisible(null)}>{'x'}</h2>
-              </div>
-              <div>
-                <label>{'Card holder:'}</label>
-                <input name="credit_holder" placeholder="..."/>
-                <label>{'Card number:'}</label>
-                <input name="credit_number" placeholder="..."/>
-                <label>{'Expires'}</label>
-                <input name="credit_expires" placeholder="..."/>
-              </div>
-             </>
-            )}
-            {visible === 3 && (
               <>
-              <div className={styles.title}>
-                <h2>{'Add Payment Method'}</h2>
-                <h2 onClick={() => setVisible(null)}>{'x'}</h2>
-              </div>
+                <div className={styles.title}>
+                  <h2>Add Payment Method</h2>
+                  <h2 onClick={() => setVisible(null)}>x</h2>
+                </div>
+                <div>
+                  <label>Card holder:</label>
+                  <input name="credit_holder" placeholder="..." />
+                  <label>Card number:</label>
+                  <input name="credit_number" placeholder="..." />
+                  <label>Expires:</label>
+                  <input name="credit_expires" placeholder="..." />
+                  <button onClick={handleAddPaymentMethod}>Save Payment Method</button>
+                </div>
               </>
             )}
-        </div>}
+          </div>
+        )}
       </main>
       <Footer />
     </>
