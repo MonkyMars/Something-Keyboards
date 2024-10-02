@@ -12,10 +12,10 @@ const Cart = () => {
     tax: 21.00,
     total: 0.00,
   });
-  const { cart } = React.useContext(GlobalContext);
+  const { cart, products, setCart } = React.useContext(GlobalContext);
+
   const [disabled, setDisabled] = React.useState(true);
 
-  // Update subtotal when cart changes
   React.useEffect(() => {
     const subtotal = cart.reduce((acc, subCart) => acc + subCart.price, 0);
     setTotals((prevTotals) => ({
@@ -24,7 +24,6 @@ const Cart = () => {
     }));
   }, [cart]);
 
-  // Update total when subtotal or tax changes
   React.useEffect(() => {
     const calculateTotal = (tax, subtotal) => {
       return parseFloat((subtotal + (subtotal * tax / 100)).toFixed(2));
@@ -36,15 +35,51 @@ const Cart = () => {
       total: newTotal,
     }));
 
-    setDisabled(newTotal === 0);  // Disable button if total is 0
+    setDisabled(newTotal === 0);
   }, [totals.subtotal, totals.tax, cart]);
 
+  React.useEffect(() => {
+    const fetchCart = async () => {
+      const response = await fetch('/api/cart', {
+        method: 'GET',
+      });
+  
+      const data = await response.json();
+  
+      if (!Array.isArray(data.cart)) {
+        console.error("Cart data is not an array:", data.cart);
+        return;
+      }
+  
+      const foundProducts = [];
+  
+      data.cart.forEach((cartItem) => {
+        const productIds = cartItem.product_id.split(',');
+  
+        productIds.forEach((id) => {
+          const product = getProductById(parseInt(id.trim()));
+          if (product) {
+            foundProducts.push(product);
+          }
+        });
+      });
+  
+      setCart(foundProducts);
+    };
+  
+    fetchCart();
+  }, []);
+  
+  
   const handleContinue = () => {
     if (totals.total !== 0) {
       window.location.href = '/cart/checkout';
     }
   };
 
+  const getProductById = (productId) => {
+    return products.find(product => product.id === productId) || null; // Return the product or null if not found
+  };
   return (
     <>
       <Head>
@@ -55,7 +90,7 @@ const Cart = () => {
         <h2 className={styles.title}>Shopping Cart</h2>
         <div className={styles.CartMain}>
           {cart?.map((item, index) => (
-            <ProductCart key={item.id || index} item={item} />
+            <ProductCart key={index} item={item} />
           ))}
         </div>
       </main>
