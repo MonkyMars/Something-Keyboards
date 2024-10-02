@@ -3,10 +3,12 @@ import Link from "next/link";
 import styles from "../styles/components/Nav.module.css";
 import Image from "next/image";
 import { useRouter } from 'next/router'; 
+import GlobalContext from '../global/GlobalContext';
 
 export default function Nav() {
-  const [search, setSearch] = React.useState(false); // Start with false for better toggle logic
-  const [searchTerm, setSearchTerm] = React.useState(""); // State for search input
+  const { user } = React.useContext(GlobalContext);
+  const [search, setSearch] = React.useState(false);
+  const [searchTerm, setSearchTerm] = React.useState("");
   const router = useRouter();  
   const pages = [
     { name: "Home", url: "/" },

@@ -4,10 +4,12 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Account.module.css";
+import GlobalContext from '../global/GlobalContext';
 
 const Account = () => {
   const [page, setPage] = React.useState(0);
   const [visible, setVisible] = React.useState(null);
+  const { user, setUser } = React.useContext(GlobalContext);
   
   const account_settings = [
     { name: "Account Details", icon: "/icons/account.png" },
@@ -16,16 +18,6 @@ const Account = () => {
     { name: "Preferences", icon: "/icons/settings-acc.png" },
     { name: "Display", icon: "/icons/display.png" },
   ];
-
-  const [user, setUser] = React.useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    added_payment_methods: [],
-    delivery_addresses: [],
-    display_mode: 1,
-  });
 
   React.useEffect(() => {
     const root = document.documentElement;

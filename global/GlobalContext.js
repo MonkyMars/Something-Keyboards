@@ -58,9 +58,19 @@ export const GlobalProvider = ({ children }) => {
         },
     ]
   );
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState([]);
+  const [user, setUser] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    added_payment_methods: [],
+    delivery_addresses: [],
+    display_mode: 1,
+  });
+
   return (
-    <GlobalContext.Provider value={{ products, setProducts, cart, setCart }}>
+    <GlobalContext.Provider value={{ products, setProducts, cart, setCart, user, setUser }}>
       {children}
     </GlobalContext.Provider>
   );
