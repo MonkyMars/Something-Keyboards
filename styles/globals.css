@@ -3,8 +3,9 @@
 body{
   margin: 0;
   padding: 0;
-  background-color: #e3e3e3;
+  background-color: var(--Bg);
   overflow-x: hidden;
+  color: var(--font-color);
 }
 
 :root{
@@ -12,8 +13,9 @@ body{
   --font-product: 'IBM Plex Sans', 'Fira Mono',  'Roboto';
   --font-nav: 'Fira Mono', 'Roboto Slab', 'Poppins';
 
-  --font-color: #fff;
-
+  --font-color: #000;
+  --reversed-font-color: #fff;
+  --reversed-background-color: #000;
   --Bg: #e3e3e3;
   --font-color: #000;
   --secondary: #6200EA95;
