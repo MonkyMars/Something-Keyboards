@@ -3,6 +3,7 @@
   grid-template-columns: 1.5fr 4fr 1fr;
   gap: 20px;
   justify-content: center;
+  color: var(--font-color);
 }
 
 @media screen and (max-width: 830px) {
@@ -44,9 +45,10 @@
   align-items: center;
   cursor: pointer;
   padding: 10px;
-  background-color: #f9f9f9;
+  background-color: var(--reversed-background-color);
   border-radius: 5px;
   margin-bottom: 10px;
+  color: var(--font-color);
 }
 
 .section h2 {
