@@ -64,7 +64,6 @@ const Account = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic (e.g., sending data to an API)
     console.log("Submitted user data:", user);
   };
 
@@ -176,7 +175,7 @@ const Account = () => {
             )}
             {page === 2 && (
               <div className={styles.paymentMethods}>
-                <button>{'Add Payment Method'}</button>
+                <button onClick={() => setVisible(page)}>{'Add Payment Method'}</button>
                 {user.added_payment_methods.length > 0 ? (
                   user.added_payment_methods.map((method, index) => (
                     <div key={index} className={styles.paymentMethod}>
@@ -256,6 +255,30 @@ const Account = () => {
                       </div>
                     </div>
                   </div>
+              </>
+            )}
+            {visible === 2 && (
+             <>
+              <div className={styles.title}>
+                <h2>{'Add Payment Method'}</h2>
+                <h2 onClick={() => setVisible(null)}>{'x'}</h2>
+              </div>
+              <div>
+                <label>{'Card holder:'}</label>
+                <input name="credit_holder" placeholder="..."/>
+                <label>{'Card number:'}</label>
+                <input name="credit_number" placeholder="..."/>
+                <label>{'Expires'}</label>
+                <input name="credit_expires" placeholder="..."/>
+              </div>
+             </>
+            )}
+            {visible === 3 && (
+              <>
+              <div className={styles.title}>
+                <h2>{'Add Payment Method'}</h2>
+                <h2 onClick={() => setVisible(null)}>{'x'}</h2>
+              </div>
               </>
             )}
         </div>}
