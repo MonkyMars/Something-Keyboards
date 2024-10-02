@@ -1,15 +1,16 @@
 import React from "react";
 import styles from "../styles/components/ProductCart.module.css";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function ProductCart({ item }) {
-  console.log(item)
+  const router = useRouter();
   return (
     <div className={styles.ProductCart}>
         <div
           key={item.id}
           className={styles.productCart}
-          onClick={() => (window.location.href = item.url)}
+          onClick={() => router.push(item.url)}
         >
           <Image
             priority
