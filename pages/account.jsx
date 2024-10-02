@@ -10,13 +10,13 @@ const Account = () => {
   const [page, setPage] = React.useState(0);
   const [visible, setVisible] = React.useState(null);
   const { user, setUser } = React.useContext(GlobalContext);
-  
+
   const account_settings = [
-    { name: "Account Details", icon: "/icons/account.png" },
-    { name: "Delivery Addresses", icon: "/icons/package.png" },
-    { name: "Payment Methods", icon: "/icons/creditcard.png" },
-    { name: "Preferences", icon: "/icons/settings-acc.png" },
-    { name: "Display", icon: "/icons/display.png" },
+    { name: "Account Details", icon: user.display_mode === 0 ? "/icons/account.png" : "/icons/lightmode/account_white.png" },
+    { name: "Delivery Addresses", icon: user.display_mode === 0 ? "/icons/package.png" : "/icons/lightmode/package_white.png" },
+    { name: "Payment Methods", icon: user.display_mode === 0 ? "/icons/creditcard.png" : "/icons/lightmode/creditcard_white.png" },
+    { name: "Preferences", icon: user.display_mode === 0 ? "/icons/settings-acc.png" : "/icons/lightmode/settings_acc_white.png"},
+    { name: "Display", icon: user.display_mode === 0 ? "/icons/display.png" : "/icons/lightmode/display_white.png" },
   ];
 
   React.useEffect(() => {
