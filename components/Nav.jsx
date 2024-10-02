@@ -18,9 +18,9 @@ export default function Nav() {
   ];
 
   const icons = [
-    { src: "/icons/search.png", alt: "Search", href: "#" },
-    { src: "/icons/shoppingcart.png", alt: "Cart", href: "/cart" },
-    { src: "/icons/account.png", alt: "User", href: "/account" },
+    { src: user.displaymode === 0 ? "/icons/search.png" : '/icons/lightmode/search_white.png', alt: "Search", href: "#" },
+    { src: user.displaymode === 0 ? "/icons/shoppingcart.png" : '/icons/lightmode/shoppingcart_white.png', alt: "Cart", href: "/cart" },
+    { src: user.displaymode === 0 ? "/icons/account.png" : '/icons/lightmode/account_white.png', alt: "User", href: "/account" },
   ];
 
   const toggleSearch = () => {
