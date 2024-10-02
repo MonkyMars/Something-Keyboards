@@ -10,6 +10,7 @@ export default function Nav() {
   const [search, setSearch] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const router = useRouter();  
+  const [displaymode, setDisplaymode] = React.useState(0)
   const pages = [
     { name: "Home", url: "/" },
     { name: "Products", url: "/products" },
@@ -18,9 +19,9 @@ export default function Nav() {
   ];
 
   const icons = [
-    { src: user.displaymode === 0 ? "/icons/search.png" : '/icons/lightmode/search_white.png', alt: "Search", href: "#" },
-    { src: user.displaymode === 0 ? "/icons/shoppingcart.png" : '/icons/lightmode/shoppingcart_white.png', alt: "Cart", href: "/cart" },
-    { src: user.displaymode === 0 ? "/icons/account.png" : '/icons/lightmode/account_white.png', alt: "User", href: "/account" },
+    { src: user.display_mode === 0 ? "/icons/search.png" : '/icons/lightmode/search_white.png', alt: "Search", href: "#" },
+    { src: user.display_mode === 0 ? "/icons/shoppingcart.png" : '/icons/lightmode/shoppingcart_white.png', alt: "Cart", href: "/cart" },
+    { src: user.display_mode === 0 ? "/icons/account.png" : '/icons/lightmode/account_white.png', alt: "User", href: "/account" },
   ];
 
   const toggleSearch = () => {
