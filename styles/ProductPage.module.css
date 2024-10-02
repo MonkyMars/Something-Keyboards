@@ -40,7 +40,7 @@
   align-items: center;
   position: relative;
   transform: translateY(-50%);
-  background-color: aliceblue;
+  background-color: var(--reversed-background-color);
   max-width: 350px;
   height: auto;
   padding: 2em;
