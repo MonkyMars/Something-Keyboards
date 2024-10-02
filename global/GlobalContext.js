@@ -66,7 +66,7 @@ export const GlobalProvider = ({ children }) => {
     password: "",
     added_payment_methods: [],
     delivery_addresses: [],
-    display_mode: 1,
+    display_mode: 0,
   });
 
   return (
