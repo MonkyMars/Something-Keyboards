@@ -1,20 +1,28 @@
 import Nav from '../components/Nav';
 import Head from 'next/head';
 import Footer from '../components/Footer';
-import React from 'react';
+import React, { use } from 'react';
 import styles from '../styles/Cart.module.css';
 import GlobalContext from '../global/GlobalContext';
 import ProductCart from '../components/ProductCart';
-
+import { useRouter } from 'next/router';
 const Cart = () => {
+  const router = useRouter();
   const [totals, setTotals] = React.useState({
     subtotal: 0.00,
     tax: 21.00,
     total: 0.00,
   });
-  const { cart, products, setCart } = React.useContext(GlobalContext);
+  const { cart, products, setCart, user } = React.useContext(GlobalContext);
 
   const [disabled, setDisabled] = React.useState(true);
+
+  React.useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--Bg', user.display_mode === 1 ? '#272727' : '#e3e3e3');
+    root.style.setProperty('--font-color', user.display_mode === 1 ? '#fff' : '#000');
+    root.style.setProperty('--reversed-background-color', user.display_mode === 1 ? '#000' : '#f9f9f9');
+  }, [user.display_mode]);
 
   React.useEffect(() => {
     const subtotal = cart.reduce((acc, subCart) => acc + subCart.price, 0);
@@ -73,12 +81,12 @@ const Cart = () => {
   
   const handleContinue = () => {
     if (totals.total !== 0) {
-      window.location.href = '/cart/checkout';
+      router.push('/cart/checkout')
     }
   };
 
   const getProductById = (productId) => {
-    return products.find(product => product.id === productId) || null; // Return the product or null if not found
+    return products.find(product => product.id === productId) || null;
   };
   return (
     <>
