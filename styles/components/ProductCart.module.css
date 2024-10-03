@@ -68,6 +68,9 @@
   margin-top: 10px;
   align-items: center;
   position: absolute;
+  & > *{
+    cursor: pointer;
+  }
 }
 
 /* Responsive Styles */
