@@ -4,13 +4,14 @@ import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import Image from "next/image";
 import Head from "next/head";
+import GlobalContext from '../../global/GlobalContext';
 
 export default function Checkout() {
   const delivery_options = [
     { id: 1, name: 'Standard', duration: '5 business days', price: 0 },
     { id: 2, name: 'Premium', duration: '1-2 business days', price: 1.99 }
   ];
-
+  const { user } = React.useContext(GlobalContext);
   const [formData, setFormData] = React.useState({
     fullname: '',
     email: '',
@@ -106,7 +107,7 @@ export default function Checkout() {
                       onClick={() => handleDeliveryChange(option.id)}
                     >
                       <label>
-                        <Image src={'/icons/package.png'} width={25} height={25} alt="" />
+                        <Image src={user.display_mode === 0 ? '/icons/package.png' : '/icons/lightmode/package_white.png'} width={25} height={25} alt="" />
                         {option.name}
                       </label>
                       <label>{option.duration}</label>
