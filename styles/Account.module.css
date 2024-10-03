@@ -253,28 +253,36 @@
 
 .Display {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  align-items: flex-start;
+  flex-direction: column;
+  margin: 1em 0.6em;
 }
-
-.Display div {
+.Display .container{
+  display: flex;
+  margin: 2em 1em;
+}
+.Display div{
   width: 50px;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.2em;
+  padding: 0.5em;
   cursor: pointer;
 }
 
-.Display .light-mode {
-  background-color: #fff;
+.Display .lightmode {
+  background-color: #dee0df;
   border-radius: 10px 0 0 10px;
+  margin: 0;
+  transition: outline 1s ease;
 }
 
-.Display .dark-mode {
-  background-color: #000;
+.Display .darkmode {
+  background-color: #272727;
   border-radius: 0 10px 10px 0;
+  margin: 0;
+  transition: outline 1s ease;
 }
 
 .Display label {
@@ -282,6 +290,16 @@
   margin-right: 10px;
 }
 
+.Display .darkmode.active{
+  background-color: #000;
+  box-shadow: 4px 8px 20px rgb(0, 0, 0, 0.1);
+  outline: 2px solid var(--button-color);
+}
+.Display .lightmode.active{
+  background-color: #fff;
+  box-shadow: 4px 8px 20px rgb(0, 0, 0, 0.1);
+  outline: 2px solid var(--button-color);
+}
 .visible{
   outline: 2px solid #ccc;
   box-shadow: 0 4px 20px rgb(0, 0, 0, 0.1);

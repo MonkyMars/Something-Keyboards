@@ -188,9 +188,10 @@ const Account = () => {
             {page === 4 && (
               <div className={styles.Display}>
                 <label>
-                  Current display mode: {user.display_mode === 0 ? "Light" : "Dark"}
+                  {`Current display mode: ${user.display_mode === 0 ? "Light" : "Dark"}mode`}
                 </label>
-                <div onClick={() => toggleDisplayMode(0)}>
+                <div className={`${styles.container}`}>
+                <div onClick={() => toggleDisplayMode(0)} className={`${styles.lightmode} ${user.display_mode === 0 && styles.active}`} >
                   <Image
                     src="/icons/display.png"
                     alt="Light mode icon"
@@ -198,13 +199,14 @@ const Account = () => {
                     height={35}
                   />
                 </div>
-                <div onClick={() => toggleDisplayMode(1)}>
+                <div onClick={() => toggleDisplayMode(1)} className={`${styles.darkmode} ${user.display_mode === 1 && styles.active}`}>
                   <Image
                     src="/icons/darkmode.png"
                     alt="Dark mode icon"
                     width={35}
                     height={35}
                   />
+                </div>
                 </div>
               </div>
             )}
