@@ -44,12 +44,12 @@ const ProductPage = ({ params }) => {
     const productToAdd = products.find(product => product.id === id);
   
     if (productToAdd) {
-      const user_id = 1; // Assuming user ID is 1 for now
+      const user_id = 1;
       try {
         const response = await fetch('/api/cart', {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",  // Set content type to JSON
+            "Content-Type": "application/json",  
           },
           body: JSON.stringify({ 
             product_id: productToAdd.id, 
