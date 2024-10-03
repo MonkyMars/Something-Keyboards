@@ -40,18 +40,33 @@ const ProductPage = ({ params }) => {
   if (!filteredProduct) return <div>Product not found</div>;
 
 
-  const addToCart = (id) => {
-    const flatProduct = products.flat();
-    const productToAdd = flatProduct.find(product => product.id === id);
+  const addToCart = async (id) => {
+    const productToAdd = products.find(product => product.id === id);
   
     if (productToAdd) {
-      setCart(prevCart => [...prevCart, productToAdd]);
-      console.log('added', productToAdd)
+      const user_id = 1; // Assuming user ID is 1 for now
+      try {
+        const response = await fetch('/api/cart', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",  // Set content type to JSON
+          },
+          body: JSON.stringify({ 
+            product_id: productToAdd.id, 
+            user_id: user_id 
+          }),
+        });
+  
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error("Error adding product to cart:", error);
+      }
     } else {
       console.log("Product not found");
     }
-  }
-
+  };
+  
   return (
     <>
       <Nav />
