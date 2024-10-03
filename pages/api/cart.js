@@ -50,7 +50,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "Failed to update cart" });
     }
 
-    return res.status(200).json({ message: "Cart updated successfully", data });
+    return res.status(200).json({ message: "Cart updated successfully" });
   }
 
   else {
