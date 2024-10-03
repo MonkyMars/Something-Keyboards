@@ -13,7 +13,7 @@
 }
 
 .Aside {
-  background-color: aliceblue;
+  background-color: var(--reversed-background-color);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -69,14 +69,15 @@
 
 @media screen and (min-width: 768px) {
   .main {
-    max-width: 70%;
+    max-width: 60%;
   }
 
   .Aside {
     position: absolute;
     right: 50px;
     top: 230px;
-    width: 30%;
+    width: 40%;
+    min-width: 200px;
     height: 600px;
     padding: 2em;
   }
@@ -95,7 +96,8 @@
 @media screen and (max-width: 768px) {
   .Aside {
     position: relative;
-    right: 0;
+    left: 50%;
+    translate: -50%;
     top: 0;
     width: 100%;
     height: auto;
@@ -111,5 +113,13 @@
   .Aside h3 {
     position: relative;
     bottom: 0;
+  }
+  .main{
+    position: relative;
+    left: 50%;
+    translate: -50%;
+  }
+  .main > *{
+    position: relative;
   }
 }
