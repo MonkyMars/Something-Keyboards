@@ -15,7 +15,6 @@
 
 .checkout button{
   margin-top: 20px;
-  width: 80%;
   background-color: var(--button-color);
   border: none;
   padding: 0.5em 1em;
@@ -24,7 +23,7 @@
   border-radius: 15px;
   font-family: var(--font-product);
   cursor: pointer;
-  transition: all 0.3s ease; /* Smooth transition */
+  transition: all 0.3s ease;
   bottom: 35px;
   &:disabled{
     background-color: var(--disabled);
@@ -61,7 +60,7 @@
   min-width: 150px;
   max-width: 150px;
   height: 150px;
-  background-color: #fff;
+  background-color: var(--reversed-background-color);
   border-radius: 10px;
   padding: 1em;
   box-sizing: border-box;
