@@ -36,7 +36,7 @@ export default function Nav() {
 
   return (
     <nav className={styles.Nav}>
-      <h2 onClick={() => window.location.href = '/'}>Something</h2>
+      <h2 onClick={() => router.push('/')}>Something</h2>
       <ul>
         {pages.map((page) => (
           <li key={page.url}>
