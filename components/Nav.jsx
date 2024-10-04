@@ -6,11 +6,12 @@ import { useRouter } from 'next/router';
 import GlobalContext from '../global/GlobalContext';
 
 export default function Nav() {
-  const { user } = React.useContext(GlobalContext);
+  const { user, cart, cartCount } = React.useContext(GlobalContext);
   const [search, setSearch] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const router = useRouter();  
- 
+  const [cartLength, setCartLength] = React.useState(0);
+
   const pages = [
     { name: "Home", url: "/" },
     { name: "Products", url: "/products" },
@@ -70,6 +71,7 @@ export default function Nav() {
               height={30}
               aria-label={icon.alt}
             />
+            {icon.href === '/cart' && <div className={styles.cartCount}>{cartCount || cart.length}</div>}
           </Link>
         ))}
       </div>

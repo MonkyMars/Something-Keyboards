@@ -7,7 +7,7 @@ import Footer from '../../components/Footer';
 import Head from 'next/head';
 
 const ProductPage = ({ params }) => {
-  const { products, setCart, user } = useContext(GlobalContext);
+  const { products, setCartCount, cartCount, user } = useContext(GlobalContext);
   const [filteredProduct, setFilteredProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [time, setTime] = useState(0);
@@ -59,6 +59,7 @@ const ProductPage = ({ params }) => {
   
         const data = await response.json();
         console.log(data);
+        setCartCount(...[cartCount +1])
       } catch (error) {
         console.error("Error adding product to cart:", error);
       }

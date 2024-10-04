@@ -88,6 +88,24 @@
   outline: 2px solid var(--button-color);
 }
 
+.cartCount{
+  background-color: var(--button-color);
+  position: absolute;
+  color: var(--reversed-font-color);
+  font-family: var(--font-product);
+  padding: 2px;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 20px;
+  font-size: .8em;
+  right: -2px; 
+}
+
 @media (max-width: 900px) {
   .Nav {
     flex-direction: row;
