@@ -3,8 +3,12 @@
   align-items: center;
   justify-content: space-between;
   min-height: 60px;
-  width: 100%;
+  width: 100.57%;
   padding: 0 20px;
+  position: relative;
+  left: 0;
+  top: 0;
+  overflow-x: hidden;
   box-sizing: border-box;
 }
 
@@ -17,7 +21,7 @@
 .Nav ul {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 0;
   flex-grow: 1;
   font-family: var(--font-nav);
 }
@@ -84,10 +88,10 @@
   outline: 2px solid var(--button-color);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .Nav {
     flex-direction: row;
-    padding: 15px 20px; 
+    padding: 20px; 
   }
 
   .Nav h2 {
@@ -109,9 +113,9 @@
   }
 
   .Nav .icons input {
-    position: static;
+    position: relative;
     width: 100%;
-    margin-top: 10px;
     padding: 0.5em 1em;
+    right: -50px !important;
   }
 }

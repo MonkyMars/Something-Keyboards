@@ -36,3 +36,11 @@
   box-sizing: border-box;
   overflow-x: auto;
 }
+
+@media screen and (max-width: 900px){
+  .slider{
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-wrap: wrap;
+  }
+}
