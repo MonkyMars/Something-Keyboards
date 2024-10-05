@@ -22,7 +22,7 @@ export default function Nav() {
   const icons = [
     { src: user.display_mode === 0 ? "/icons/search.png" : '/icons/lightmode/search_white.png', alt: "Search", href: "#" },
     { src: user.display_mode === 0 ? "/icons/shoppingcart.png" : '/icons/lightmode/shoppingcart_white.png', alt: "Cart", href: "/cart" },
-    { src: user.display_mode === 0 ? "/icons/account.png" : '/icons/lightmode/account_white.png', alt: "User", href: "/account" },
+    { src: user.display_mode === 0 ? "/icons/account.png" : '/icons/lightmode/account_white.png', alt: "User", href: "/user/account" },
   ];
 
   const toggleSearch = () => {
@@ -60,7 +60,7 @@ export default function Nav() {
         {icons.map((icon) => (
           <Link
             key={icon.alt}
-            href={icon.href}
+            href={icon.href === '/user/account' && user.email ? icon.href : '/user/login'}
             onClick={icon.alt === "Search" ? toggleSearch : undefined}
           >
             <Image
