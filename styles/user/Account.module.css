@@ -1,0 +1,401 @@
+.main {
+  display: grid;
+  grid-template-columns: 1.5fr 4fr 1fr;
+  gap: 20px;
+  justify-content: center;
+  color: var(--font-color);
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.optionsList {
+  grid-column: 1;
+}
+
+.section {
+  grid-column: 2;
+  justify-self: start;
+  width: 100%;
+  padding: 0 2em;
+  box-sizing: border-box;
+  font-family: var(--font-product);
+}
+
+.optionsList div {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-product);
+  padding: 2em;
+  box-sizing: border-box;
+}
+
+.optionsList h2 {
+  font-family: var(--font-product);
+  text-align: center;
+  text-decoration: underline 2.5px solid var(--button-color);
+}
+
+.optionsList label {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  background-color: var(--reversed-background-color);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: var(--font-color);
+}
+
+.section h2 {
+  font-family: var(--font-product);
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.userInformation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  font-family: var(--font-product);
+  & > label{
+    font-family: var(--font-product);
+    margin: 0.7em 0;
+  }
+  & > div > div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 90%;
+  }
+  & > div{
+    display: flex;
+    grid-gap: 1em;
+    &  * > input{
+      border: none;
+      max-width: 90%;
+      padding: 0.6em 1em;
+      margin: 1em;
+      border-radius: 3px;
+      color: #212121;
+      &:focus{
+        outline: 2.5px solid var(--button-color);
+        color: #000;
+      }
+    }
+  }
+  & > input{
+    border: none;
+    max-width: 90%;
+    width: 90%;
+    max-width: 385px;
+    padding: 0.6em 1em;
+    margin: 1em;
+    border-radius: 3px;
+    color: #212121;
+    &:focus{
+      outline: 2.5px solid var(--button-color);
+      color: #000;
+    }
+  }
+}
+.section form button{
+  position: relative;
+  margin: 2em 0;
+  display: flex;
+  width: 300px;
+  max-width: 95%;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--button-color);
+  cursor: pointer;
+  color: #fff;
+  font-family: var(--font-product);
+  transition: transform 0.2s;
+  margin-left: 5em;
+  &:hover{
+    transform: translateY(-2px)
+  }
+  &:disabled{
+    background-color: var(--disabled);
+  }
+}
+
+.section .paymentMethod{
+  outline: 2px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-product);
+  margin: 2em 0;
+  padding: 2em;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: max-content;
+  & > div{
+    display: flex;
+    margin: 0.6em;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    font-size: 1.25em;
+    font-family: var(--font-nav);
+  }
+  & > input{
+    border: none;
+    max-width: 90%;
+    width: 385px;
+    padding: 0.6em 1em;
+    margin: 1em;
+    border-radius: 3px;
+    color: #212121;
+    &:focus{
+      outline: 2.5px solid var(--button-color);
+      color: #000;
+    }
+  }
+  & > label {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 90%;
+  }
+}
+
+.section .paymentMethods{
+  margin: 1em 0;
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  flex-wrap: wrap;
+  max-width: 20vw;
+}
+
+.paymentMethods span{
+  background-color: aliceblue;
+  outline: 2px solid var(--button-color);
+  border-radius: 10px;
+  height: max-content;
+  font-size: 1.3em;
+  width: 4.6em;
+  height: 4.6em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.address{
+  outline: 2px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-product);
+  margin: 2em 0;
+  padding: 2em;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: max-content;
+  & > div > div{
+    display: flex;
+    flex-direction: column;
+    margin: 0.6em;
+  }
+  & > div{
+    display: flex;
+    margin: 0 0.6em;
+  }
+  & > input{
+    border: none;
+    max-width: 90%;
+    width: 385px;
+    padding: 0.6em 1em;
+    margin: 1em;
+    border-radius: 3px;
+    color: #212121;
+    &:focus{
+      outline: 2.5px solid var(--button-color);
+      color: #000;
+    }
+  }
+  & > div > div>  input{
+    border: none;
+    max-width: 90%;
+    width: 160px;
+    padding: 0.6em 1em;
+    margin: 1em;
+    border-radius: 3px;
+    color: #212121;
+    &:focus{
+      outline: 2.5px solid var(--button-color);
+      color: #000;
+    }
+  }
+  & > label {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 90%;
+  }
+}
+
+.addAddress{
+  margin-left: 10em !important;
+}
+
+.Display {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin: 1em 0.6em;
+}
+.Display .container{
+  display: flex;
+  margin: 2em 1em;
+}
+.Display div{
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.Display .lightmode {
+  background-color: #dee0df;
+  border-radius: 10px 0 0 10px;
+  margin: 0;
+  transition: outline 1s ease;
+}
+
+.Display .darkmode {
+  background-color: #272727;
+  border-radius: 0 10px 10px 0;
+  margin: 0;
+  transition: outline 1s ease;
+}
+
+.Display label {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.Display .darkmode.active{
+  background-color: #000;
+  box-shadow: 4px 8px 20px rgb(0, 0, 0, 0.1);
+  outline: 2px solid var(--button-color);
+}
+.Display .lightmode.active{
+  background-color: #fff;
+  box-shadow: 4px 8px 20px rgb(0, 0, 0, 0.1);
+  outline: 2px solid var(--button-color);
+}
+.visible{
+  outline: 2px solid #ccc;
+  box-shadow: 0 4px 20px rgb(0, 0, 0, 0.1);
+  background-color: var(--Bg);
+  font-family: var(--font-nav);
+  width: 360px;
+  max-width: 95%;
+  height: auto;
+  padding: 1.5em;
+  box-sizing: border-box;
+  border-radius: 10px;
+  max-width: 80%;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  & * > input{
+    min-width: 90%;
+    max-width: 95%;
+    background-color: #fff;
+    border: none;
+    outline: none;
+    padding: 0.6em 1em;
+    margin: 0.6em;
+    border-radius: 5px;
+    &:focus{
+      outline: 2px solid var(--button-color)
+    }
+  }
+  & .title {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+    border-bottom: 2px solid var(--button-color);
+    margin-bottom: 1em;
+    height: 50px;
+  }
+  & .title >:nth-child(2) {
+    margin-left: 0.3em;
+    cursor: pointer;
+    color: var(--button-color)
+  }
+  & .title >:nth-child(1) {
+    font-size: 1.4em;
+  }
+  & div > button{
+    margin-top: 20px;
+  background-color: var(--button-color);
+  border: none;
+  padding: 0.5em 1em;
+  color: #fff;
+  font-size: 1em;
+  border-radius: 15px;
+  width: 80%;
+  font-family: var(--font-product);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  bottom: 35px;
+  &:disabled{
+    background-color: var(--disabled);
+  }
+  }
+  & > div:has(button) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main{
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    align-items: center;
+  }
+  .section{
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    justify-content: center;
+    & div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      max-width: 100%;
+    }
+    & * > label{
+      left: 100px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
