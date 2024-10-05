@@ -8,6 +8,9 @@ const Support = () => {
     <Nav/>
       <main className={styles.main}>
         
+        <div>
+        <h2>{'Support'}</h2>
+        </div>
       </main>
     <Footer/>
     </>
