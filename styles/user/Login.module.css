@@ -1,0 +1,70 @@
+.mainContainer form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  border: 2px solid #ccc;
+  height: max-content;
+  width: 300px;
+  max-width: 95%;
+  padding: 2em;
+  box-sizing: border-box;
+  place-self: center;
+  border-radius: 10px;
+  margin: 2em;
+  & > button{
+    margin-top: 20px;
+    background-color: var(--button-color);
+    border: none;
+    padding: 0.3em;
+    color: #fff;
+    font-size: .95em;
+    border-radius: 15px;
+    width: 80%;
+    font-family: var(--font-product);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    bottom: 35px;
+    &:disabled{
+      background-color: var(--disabled);
+    }
+    &:hover{
+      translate: 0 -2px;
+    }
+  }
+  & > input{
+    min-width: 90%;
+    max-width: 95%;
+    background-color: var(--reversed-font-color);
+    border: none;
+    outline: none;
+    padding: 0.6em 1em;
+    margin: 0.6em;
+    border-radius: 5px;
+    &:focus{
+      outline: 2px solid var(--button-color)
+    }
+  }
+}
+
+.mainContainer h2{
+  text-decoration: underline var(--button-color);
+  font-size: 2em;
+}
+
+.mainContainer{
+  font-family: var(--font-product);
+  padding: 0 2em;
+  display: grid;
+}
+
+.Nav{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  padding: 0 2em;
+  box-sizing: border-box;
+  font-family: var(--font-nav);
+  align-items: center;
+}
