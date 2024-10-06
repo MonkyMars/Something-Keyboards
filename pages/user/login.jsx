@@ -2,8 +2,9 @@ import Footer from "../../components/Footer";
 import styles from "../../styles/user/Login.module.css";
 import React from "react";
 import GlobalContext from "../../global/GlobalContext";
-
+import { useRouter } from "next/router";
 export default function Login() {
+  const router = useRouter();
   const { user, setUser } = React.useContext(GlobalContext);
   const [formData, setFormData] = React.useState({
     email: "",
@@ -54,7 +55,7 @@ export default function Login() {
   return (
     <>
       <nav className={styles.Nav}>
-        <h2>{"Something"}</h2>
+        <h2 onClick={() => router.push('/')}>{"Something"}</h2>
         <div onClick={() => toggleDisplayMode(user.display_mode === 1 ? 0 : 1)}>
           {user.display_mode}
         </div>
