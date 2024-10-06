@@ -10,7 +10,6 @@ export default function Nav() {
   const [search, setSearch] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const router = useRouter();  
-  const [cartLength, setCartLength] = React.useState(0);
 
   const pages = [
     { name: "Home", url: "/" },
@@ -34,6 +33,16 @@ export default function Nav() {
       router.push(`/products?query=${searchTerm}`);
     }
   };
+
+  const handleIconHref = (alt, href) => {
+    if(alt === 'User' && user.email) {
+      return href;
+    } else if(alt !== 'User') {
+      return href;
+    } else {
+      return '/user/login'
+    }
+  }
 
   return (
     <nav className={styles.Nav}>
@@ -60,7 +69,7 @@ export default function Nav() {
         {icons.map((icon) => (
           <Link
             key={icon.alt}
-            href={icon.href === '/user/account' && user.email ? icon.href : '/user/login'}
+            href={handleIconHref(icon.alt, icon.href)}
             onClick={icon.alt === "Search" ? toggleSearch : undefined}
           >
             <Image
