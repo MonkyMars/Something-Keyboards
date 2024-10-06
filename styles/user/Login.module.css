@@ -67,4 +67,7 @@
   box-sizing: border-box;
   font-family: var(--font-nav);
   align-items: center;
+  & > h2{
+    cursor: pointer;
+  }
 }
