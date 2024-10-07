@@ -80,7 +80,7 @@ export default function Nav() {
               height={30}
               aria-label={icon.alt}
             />
-            {icon.href === '/cart' && <div className={styles.cartCount}>{cartCount || cart.length}</div>}
+            {icon.href === '/cart' && <div className={styles.cartCount}>{cart.length || cartCount}</div>}
           </Link>
         ))}
       </div>
