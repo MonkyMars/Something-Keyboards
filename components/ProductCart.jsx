@@ -26,12 +26,41 @@ export default function ProductCart({ item }) {
       if (!response.ok) {
         throw new Error('Failed to remove from cart');
       }
-      location.reload()
+      if(response.ok) {
+          const response = await fetch('/api/cart', {
+            method: 'GET',
+          });
+      
+          const data = await response.json();
+      
+          if (!Array.isArray(data.cart)) {
+            console.error("Cart data is not an array:", data.cart);
+            return;
+          }
+      
+          const foundProducts = [];
+      
+          data.cart.forEach((cartItem) => {
+            const productIds = cartItem.product_id.split(',');
+      
+            productIds.forEach((id) => {
+              const product = getProductById(parseInt(id.trim()));
+              if (product) {
+                foundProducts.push(product);
+              }
+            });
+          });
+      
+          setCart(foundProducts);
+      }
     } catch (error) {
       console.error("Error removing item from cart:", error);
     }
   };
   
+  const getProductById = (productId) => {
+    return products.find(product => product.id === productId) || null;
+  };
 
   return (
     <div className={styles.ProductCart}>
