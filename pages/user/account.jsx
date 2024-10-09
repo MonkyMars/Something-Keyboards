@@ -5,8 +5,9 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../../styles/user/Account.module.css";
 import GlobalContext from '../../global/GlobalContext';
-
+import { useRouter } from "next/router";
 const Account = () => {
+  const router = useRouter();
   const [page, setPage] = React.useState(0);
   const [visible, setVisible] = React.useState(null);
   const { user, setUser } = React.useContext(GlobalContext);
@@ -20,11 +21,11 @@ const Account = () => {
   ];
 
   React.useEffect(() => {
-    const root = document.documentElement;
-    root.style.setProperty('--Bg', user.display_mode === 1 ? '#272727' : '#e3e3e3');
-    root.style.setProperty('--font-color', user.display_mode === 1 ? '#fff' : '#000');
-    root.style.setProperty('--reversed-background-color', user.display_mode === 1 ? '#000' : '#f9f9f9');
-  }, [user.display_mode]);
+    if (!user.email) {
+      router.push('/user/login');
+    }
+  }, [user.email, router]);
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,6 +34,7 @@ const Account = () => {
 
   const toggleDisplayMode = (mode) => {
     setUser((prevUser) => ({ ...prevUser, display_mode: mode }));
+    handleSubmit();
   };
 
   const handleAddAddress = () => {
@@ -53,20 +55,37 @@ const Account = () => {
     setVisible(null);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submitted user data:", user);
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('/api/user', {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user)
+      });
+  
+      const result = await response.json();
+      if (!response.ok) {
+        console.error("Error updating user:", result.error);
+      } else {
+        console.log("Update successful:", result.message);
+      }
+    } catch (error) {
+      console.error("Request failed:", error);
+    }
   };
+  
 
   return (
     <>
       <Head>
-        <title>Something | Account</title>
+        <title>{'Something | Account'}</title>
       </Head>
       <Nav />
       <main className={styles.main}>
         <aside className={styles.optionsList}>
-          <h2>Settings</h2>
+          <h2>{'Settings'}</h2>
           <div>
             {account_settings.map((setting, index) => (
               <label
@@ -136,7 +155,7 @@ const Account = () => {
                 <button type="button" className={styles.addAddress} onClick={() => setVisible(1)}>
                   Add Address
                 </button>
-                {user.delivery_addresses.map((address, index) => (
+                {user.delivery_addresses?.map((address, index) => (
                   <div key={address.id || index} className={styles.address}>
                     <label>Country:</label>
                     <input value={address.country} readOnly />
@@ -162,10 +181,10 @@ const Account = () => {
             {page === 2 && (
               <div className={styles.paymentMethods}>
                 <button type="button" onClick={() => setVisible(2)}>
-                  Add Payment Method
+                {'Add Payment Method'}
                 </button>
-                {user.added_payment_methods.length > 0 ? (
-                  user.added_payment_methods.map((method, index) => (
+                {user.added_payment_methods?.length > 0 ? (
+                  user.added_payment_methods?.map((method, index) => (
                     <div key={index} className={styles.paymentMethod}>
                       <div>
                         <Image src={method.icon} alt={method.name} width={45} height={45} />

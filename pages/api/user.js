@@ -16,6 +16,7 @@ export default async function user(req, res) {
       }
 
       if (first_name) {
+        // Register new user
         if (existingUser.length > 0) {
           return res.status(400).json({ error: "User already exists" });
         }
@@ -32,7 +33,7 @@ export default async function user(req, res) {
 
         return res.status(200).json({ message: "User successfully created" });
       } else {
-        console.log(existingUser)
+        // Login user
         if (existingUser.length > 0) {
           const validPassword = await bcrypt.compare(password, existingUser[0].password);
 
@@ -48,8 +49,59 @@ export default async function user(req, res) {
     } catch (error) {
       return res.status(500).json({ error: "Internal server error", details: error.message });
     }
+  } else if (req.method === "PUT") {
+    try {
+      const { email, password, first_name, last_name, delivery_addresses, payment_methods, display_mode } = req.body;
+
+      console.log(email)
+      const { data: existingUser, error: fetchError } = await supabase
+        .from("users")
+        .select("*")
+        .ilike("email", email);
+
+      if (fetchError || existingUser.length === 0) {
+        return res.status(404).json({ error: "User not found or error fetching data", fetchError });
+      }
+
+      let hashedPassword = existingUser[0].password;
+      if (password) {
+        hashedPassword = await bcrypt.hash(password, 10);
+      }
+
+      const { error: updateError } = await supabase
+        .from("users")
+        .update({ email, password: hashedPassword, first_name, last_name, delivery_addresses, payment_methods, display_mode })
+        .eq("email", email);
+
+      if (updateError) {
+        return res.status(500).json({ error: "Failed to update user in public.users", updateError });
+      }
+
+      return res.status(200).json({ message: "User successfully updated" });
+    } catch (error) {
+      return res.status(500).json({ error: "Internal server error", details: error.message });
+    }
+  } else if(req.method === 'GET') {
+    try{
+      const { email } = req.query;
+
+      const { data: user, error: fetchError } = await supabase
+          .from("users")
+          .select("*")
+          .ilike("email", email);
+      console.log(user)
+      if(user) {
+        return res.status(200).json(user);
+      } else {
+        return res.status(404).json({ error: "User not logged in"})
+      }
+    } catch(error) {
+      console.log(error)
+      return res.status(500).json({ error: "Internal server error", details: error.message})
+    }
+    
   } else {
-    res.setHeader("Allow", ["POST"]);
+    res.setHeader("Allow", ["POST", "PUT", "GET"]);
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
 }
