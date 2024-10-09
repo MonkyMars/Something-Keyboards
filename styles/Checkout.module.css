@@ -42,7 +42,7 @@
 }
 
 .checkout .inputBox input{
-  margin: 0.3em;
+  margin: 0.6em;
   display: flex;
   width: 300px;
   max-width: 95%;
@@ -103,4 +103,10 @@
 
 .checkout .deliveryText{
   margin: 1em 0;
+}
+
+.orderOverview > div{
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
 }
