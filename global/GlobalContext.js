@@ -65,8 +65,12 @@ export const GlobalProvider = ({ children }) => {
     last_name: "",
     email: "",
     password: "",
-    added_payment_methods: [],
-    delivery_addresses: [],
+    added_payment_methods: [
+      { name: '', cardNumber: '', CVC: '', expires: '' }
+    ],
+    delivery_addresses: [
+      { address: '', zipCode: '', country: '' }
+    ],
     display_mode: 0,
   });
 
