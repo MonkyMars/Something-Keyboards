@@ -2,7 +2,11 @@
   display: flex;
   flex-direction: column;
   width: 400px;
-  max-width: 100%;
+  max-width: 100vw;
+  height: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 90vh;
   place-self: center;
   align-items: center;
   font-family: var(--font-nav);
@@ -109,4 +113,52 @@
   display: flex;
   flex-direction: column;
   gap: 0.6em;
+}
+
+.orderOverview{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: -2.56rem;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  & .address{
+    top: -30px;
+    position: relative;
+    z-index: 1;
+    background-color: var(--reversed-background-color);
+    padding: 0.2em 0.6em;
+    border-radius: 5px;
+    font-family: var(--font-product);
+  }
+  & button{
+    width: 80%;
+  }
+  & .price{
+    padding: 0.4em 0.7em;
+    border-bottom: 2px solid var(--button-color);
+    font-size: 1.2em;
+    width: 80%;
+    text-align: center;
+    font-family: var(--font-product);
+    font-weight: 500;
+  }
+  & .cart, .account{
+    height: 20%;
+    max-height: 40%;
+    overflow-y: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: .3em 1em;
+  }
+  & .account label{
+    border-bottom: 2px solid var(--button-color);
+    min-width: 80%;
+    max-width: 80%;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: center;
+  }
 }

@@ -1,0 +1,12 @@
+.Map{
+  height: 12em;
+  margin: 0;
+  padding: 0 4.2em;
+  border-radius: 15px 15px 0 0;
+  background-color: var(--button-color);
+  font-family: var(--font-product);
+  z-index: 1;
+  width: 295px;
+  max-width: 100vw;
+  position: relative;
+}

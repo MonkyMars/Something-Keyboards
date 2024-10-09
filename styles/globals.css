@@ -8,6 +8,28 @@ body{
   color: var(--font-color);
 }
 
+.leaflet-control-zoom-out, .leaflet-control-zoom-in{
+  background-color: var(--button-color) !important;
+  border: none !important;
+  color: var(--reversed-font-color) !important;
+  border-radius: 15px !important;
+}
+.leaflet-control-zoom{
+  border: none !important;
+  outline: none !important;
+  display: flex;
+  flex-direction: row;
+  grid-gap: 1em;
+}
+
+.leaflet-control-attribution{
+  display: none;
+}
+
+.leaflet-marker-icon {
+  color: var(--button-color);
+}
+
 :root{
   --font-header: 'IBM Plex Mono', 'Lora', 'Poppins';
   --font-product: 'IBM Plex Sans', 'Fira Mono',  'Roboto';
