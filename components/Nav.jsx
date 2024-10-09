@@ -10,19 +10,24 @@ export default function Nav() {
   const [search, setSearch] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const router = useRouter();  
-
+  const [icons, setIcons] = React.useState([])
   const pages = [
     { name: "Home", url: "/" },
     { name: "Products", url: "/products" },
     { name: "Support", url: "/support" },
     { name: "About", url: "/about" },
   ];
-
-  const icons = [
-    { src: user.display_mode === 0 ? "/icons/search.png" : '/icons/lightmode/search_white.png', alt: "Search", href: "#" },
-    { src: user.display_mode === 0 ? "/icons/shoppingcart.png" : '/icons/lightmode/shoppingcart_white.png', alt: "Cart", href: "/cart" },
-    { src: user.display_mode === 0 ? "/icons/account.png" : '/icons/lightmode/account_white.png', alt: "User", href: "/user/account" },
-  ];
+  
+  React.useEffect(() => {
+    const root = document.documentElement;
+    const icons = [
+    { src: root.style.getPropertyValue('--Bg') === '#e3e3e3' ? "/icons/search.png" : '/icons/lightmode/search_white.png', alt: "Search", href: "#" },
+    { src: root.style.getPropertyValue('--Bg') === '#e3e3e3' ? "/icons/shoppingcart.png" : '/icons/lightmode/shoppingcart_white.png', alt: "Cart", href: "/cart" },
+    { src: root.style.getPropertyValue('--Bg') === '#e3e3e3' ? "/icons/account.png" : '/icons/lightmode/account_white.png', alt: "User", href: "/user/account" },
+    ];
+    setIcons(icons);
+  }, [user.display_mode])
+  
 
   const toggleSearch = () => {
     setSearch((prev) => !prev);

@@ -12,13 +12,6 @@ const ProductPage = ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [time, setTime] = useState(0);
 
-  React.useEffect(() => {
-    const root = document.documentElement;
-    root.style.setProperty('--Bg', user.display_mode === 1 ? '#272727' : '#e3e3e3');
-    root.style.setProperty('--font-color', user.display_mode === 1 ? '#fff' : '#000');
-    root.style.setProperty('--reversed-background-color', user.display_mode === 1 ? '#000' : '#f9f9f9');
-  }, [user.display_mode]);
-
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setTime(1);
