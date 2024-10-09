@@ -11,7 +11,8 @@ export default function Checkout() {
     { id: 1, name: 'Standard', duration: '5 business days', price: 0 },
     { id: 2, name: 'Premium', duration: '1-2 business days', price: 1.99 }
   ];
-  const { user } = React.useContext(GlobalContext);
+  const { user, cart } = React.useContext(GlobalContext);
+  // window.alert(cart)
   const [formData, setFormData] = React.useState({
     fullname: '',
     email: '',
@@ -24,6 +25,12 @@ export default function Checkout() {
     }
   });
   const [formPage, setFormPage] = React.useState(0);
+
+  React.useEffect(() => {
+    if(user.email) {
+      setFormData(user)
+    }
+  }, [user])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -43,6 +50,17 @@ export default function Checkout() {
     }
   };
 
+  const handlePaymentChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      payment: {
+        ...prevData.payment,
+        [name]: value
+      }
+    }))
+  }
+
   const handleDeliveryChange = (id) => {
     setFormData((prevData) => ({ ...prevData, delivery_option: id }));
   };
@@ -59,7 +77,7 @@ export default function Checkout() {
       <Nav />
       <main className={styles.main}>
         <div className={styles.checkout}>
-          <h1>{'Checkout'}</h1>
+          {formPage !== 2 && <h1>{'Checkout'}</h1>}
           <form className={styles.inputBox}>
             {formPage === 0 && (
               <>
@@ -99,9 +117,9 @@ export default function Checkout() {
     
                 <label className={styles.deliveryText}>Delivery:</label>
                 <div className={styles.deliveryOptionsSlider}>
-                  {delivery_options.map((option) => (
+                  {delivery_options.map((option, index) => (
                     <div
-                      key={option.id}
+                      key={option.id || index}
                       className={styles.deliveryBox}
                       style={{ border: formData.delivery_option === option.id ? '3px solid #6200EA' : '3px solid #ccc' }}
                       onClick={() => handleDeliveryChange(option.id)}
@@ -122,20 +140,19 @@ export default function Checkout() {
             )}
             {formPage === 1 && (
               <>
-                <h3>{'Enter payment method:'}</h3>
                 <label>{'Credit Card Number:'}</label>
                 <input 
                   name="credit_number" 
                   value={formData.payment.credit_number} 
                   placeholder="Card Number" 
-                  onChange={handleInputChange}
+                  onChange={handlePaymentChange}
                 />
                 <label>{'Credit Card Expires:'}</label>
-                <input 
+                <input
                   name="credit_expires" 
                   value={formData.payment.credit_expires} 
                   placeholder="MM/YY" 
-                  onChange={handleInputChange}
+                  onChange={handlePaymentChange}
                 />
                 <label>{'Credit Card CVC:'}</label>
                 <input 
@@ -145,6 +162,29 @@ export default function Checkout() {
                   placeholder="CVC" 
                   onChange={handleCVCChange}
                 />
+                {user.payment_methods&& <div>
+                  <label>{'Or select from added payment methods:'}</label>
+                  <select>
+                    {user.payment_methods?.map((method, index) => (
+                      <option key={index}>{method.name}</option>
+                    ))}
+                  </select>
+                </div>}
+                <button type="submit" onClick={() => setFormPage(2)}>{'Order overview'}</button>
+              </>
+            )}
+            {formPage === 2 && (
+              <>
+              <div className={styles.orderOverview}>
+              
+              <h1>{'Order overview'}</h1>
+              <div>
+                {cart?.map((item, index) => (
+                  <label key={index}>{item.name}</label>
+                ))}
+              </div>
+              <label>{cart.reduce((total, item) => total + item.price, 0).toFixed(2)}</label>
+              </div>
               </>
             )}
           </form>
