@@ -60,6 +60,7 @@ export const GlobalProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [cartCount, setCartCount] = useState(0);
   const [user, setUser] = useState({
+    id: 0,
     first_name: "",
     last_name: "",
     email: "",
