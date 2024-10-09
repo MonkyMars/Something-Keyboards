@@ -7,8 +7,15 @@
         "settings": {
           "foreground": "#e75bbd"
         }
+      },
+      {
+        "scope": "entity.name.tag.tsx",
+        "settings": {
+          "foreground": "#e75bbd"
+        }
       }
     ]
   }
 }
+
 // #2688c9
