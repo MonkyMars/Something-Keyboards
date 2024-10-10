@@ -15,7 +15,12 @@
         }
       }
     ]
-  }
+  },
+  "cSpell.words": [
+    "fullname",
+    "lightmode",
+    "supabase"
+  ]
 }
 
 // #2688c9
