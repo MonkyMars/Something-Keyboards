@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
-import styles from '../styles/components/Map.module.css'; // Ensure the path is correct
+import styles from '../styles/components/Map.module.css';
 
 // Dynamically import MapContainer, TileLayer, Marker, and Popup from react-leaflet
 const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
@@ -28,7 +28,7 @@ const Map = ({ address, country, zipCode }) => {
     };
 
     fetchCoordinates();
-  }, [address, country, zipCode]); // Removed position from dependencies
+  }, [address, country, zipCode]);
 
   useEffect(() => {
     import('leaflet').then(L => {
