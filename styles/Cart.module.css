@@ -53,9 +53,11 @@
   font-size: 1em;
   border-radius: 15px;
   font-family: var(--font-product);
-  cursor: pointer;
+  cursor: pointer !important;
+  box-sizing: border-box;
   &:disabled{
     background-color: var(--disabled);
+    cursor: not-allowed !important;
   }
 }
 
