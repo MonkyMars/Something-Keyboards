@@ -7,7 +7,7 @@ import Footer from '../../components/Footer';
 import Head from 'next/head';
 
 const ProductPage = ({ params }) => {
-  const { products, setCartCount, cartCount, user } = useContext(GlobalContext);
+  const { products, setCartCount, cartCount } = useContext(GlobalContext);
   const [filteredProduct, setFilteredProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [time, setTime] = useState(0);
