@@ -1,6 +1,6 @@
 import React from "react";
-import Nav from '/components/Nav';
-import Footer from '/components/Footer';
+import Nav from '../components/Nav';
+import Footer from '../components/Footer';
 import Head from 'next/head';
 import styles from '../styles/components/Product.module.css';
 import Product from "../components/Product";
@@ -11,8 +11,14 @@ const Products = () => {
   const { products } = React.useContext(GlobalContext);
   const [search, setSearch] = React.useState('');
   const [filteredProducts, setFilteredProducts] = React.useState(products);
+  const highestValue = products.reduce((max: number, obj: any) => {
+    return Math.max(max, obj.price);
+  }, -Infinity);
+  const lowestValue = products.reduce((min: number, obj: any) => {
+    return Math.min(min, obj.price);
+  }, Infinity);
   const [filters, setFilters] = React.useState({
-    priceRange: { min: 59.99, max: 199.99, value: 199.99 },
+    priceRange: { min: lowestValue, max: highestValue, value: highestValue },
     name: { value: search },
     color: { value: '' },
     size: { value: '' },
@@ -42,7 +48,7 @@ const Products = () => {
 
   React.useEffect(() => {
     const flatProducts = products.flat();
-    const filteredProduct = flatProducts.filter((product) => {
+    const filteredProduct = flatProducts.filter((product: any) => {
       const matchesName = product.name.toLowerCase().includes(filters.name.value.toLowerCase());
       const matchesPrice = product.price <= filters.priceRange.value;
       const matchesColor = filters.color.value ? product.color === filters.color.value : true;
@@ -56,12 +62,12 @@ const Products = () => {
   return (
     <>
       <Head>
-        <title>Something | Products</title>
+        <title>{'Something | Products'}</title>
       </Head>
       <Nav />
 
       <main className={styles.main}>
-        <h2 className={styles.h2}>Something Products</h2>
+        <h2 className={styles.h2}>{'Something Products'}</h2>
         <div className={styles.filters}>
           <input 
             type="text" 
@@ -86,25 +92,24 @@ const Products = () => {
             value={filters.color.value} 
             onChange={(e) => setFilters(prev => ({...prev, color: {value: e.target.value}}))}
           >
-            <option value="">Color</option>
-            <option value="red">Red</option>
-            <option value="blue">Blue</option>
-            <option value="grey">Grey</option>
-            <option value="black">Black</option>
+            <option value="">{'Color'}</option>
+            <option value="red">{'Red'}</option>
+            <option value="blue">{'Blue'}</option>
+            <option value="grey">{'Grey'}</option>
+            <option value="black">{'Black'}</option>
           </select>
         </div>  
         <div className={styles.slider}>
   {filteredProducts && filteredProducts.length > 0 ? (
-    filteredProducts.map((product, index) => (
+    filteredProducts.map((product: any, index: number) => (
       <Product key={product.id || index} product={product} />
     ))
   ) : (
-    <h2 className={styles.error}>No products found</h2>
+    <h2 className={styles.error}>{'No products found'}</h2>
   )}
 </div>
 
       </main>
-
       <Footer />
     </>
   );
