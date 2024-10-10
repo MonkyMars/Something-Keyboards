@@ -13,7 +13,7 @@ const Cart = () => {
     tax: 21.00,
     total: 0.00,
   });
-  const { cart, products, setCart, user } = React.useContext(GlobalContext);
+  const { cart, products, setCart } = React.useContext(GlobalContext);
 
   const [disabled, setDisabled] = React.useState(true);
 
@@ -33,7 +33,7 @@ const Cart = () => {
     const newTotal = calculateTotal(totals.tax, totals.subtotal);
     setTotals((prevTotals) => ({
       ...prevTotals,
-      total: newTotal,
+      total: newTotal.toFixed(2),
     }));
 
     setDisabled(newTotal === 0);
