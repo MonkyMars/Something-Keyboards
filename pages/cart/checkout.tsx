@@ -28,7 +28,7 @@ export default function Checkout() {
       credit_cvc: "",
     },
   });
-  const [icons, setIcons] = React.useState([]);
+  const [icons, setIcons] = React.useState<{ src: string }[]>([]);
   const [formPage, setFormPage] = React.useState(0);
 
   React.useEffect(() => {
@@ -44,7 +44,7 @@ export default function Checkout() {
         return;
       }
 
-      const foundProducts = [];
+      const foundProducts: any = [];
 
       data.cart.forEach((cartItem: any) => {
         const productIds = cartItem.product_id.split(",");
@@ -75,8 +75,11 @@ export default function Checkout() {
   }, [user]);
 
   React.useEffect(() => {
+    type Icons = {
+      src: string
+    }
     const root = document.documentElement;
-    const icons = [
+    const icons: Icons[] = [
       {
         src:
           root.style.getPropertyValue("--Bg") === "#e3e3e3"
