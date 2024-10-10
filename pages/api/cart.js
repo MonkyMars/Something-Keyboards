@@ -91,7 +91,7 @@ export default async function handler(req, res) {
       .status(200)
       .json({ message: "Product removed from cart successfully", data });
   } else {
-    res.setHeader("Allow", ["GET", "POST"]);
+    res.setHeader("Allow", ["GET", "POST", "DELETE"]);
     res.status(405).end(`Method ${req.method} not allowed`);
   }
 }
