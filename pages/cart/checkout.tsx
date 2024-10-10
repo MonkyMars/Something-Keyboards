@@ -181,7 +181,7 @@ export default function Checkout() {
 
                 <label className={styles.deliveryText}>Delivery:</label>
                 <div className={styles.deliveryOptionsSlider}>
-                  {delivery_options?.map((option, index) => (
+                  {delivery_options?.map((option: any, index: number) => (
                     <div
                       key={option?.id || index}
                       className={styles.deliveryBox}
