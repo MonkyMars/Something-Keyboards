@@ -1,20 +1,44 @@
-.main div {
+.main {
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  width: 100%;
-  height: 100%;
-  justify-items: center;
-  align-items: center;
-}
-
-
-.main{
-  font-family: var(--font-product);
+  grid-template-columns: 1.5fr 4fr 1fr;
+  gap: 20px;
+  justify-content: center;
   color: var(--font-color);
-  width: 100%;
-  height: 100%;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
-.main h1{
-  column-count: 2;
+.main aside h2 {
+    font-family: var(--font-product);
+    text-align: center;
+    text-decoration: underline 2.5px solid var(--button-color);
+}
+
+.supportOptions label {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  background-color: var(--reversed-background-color);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: var(--font-color);
+}
+
+.supportOptions div{
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-product);
+  padding: 2em;
+  box-sizing: border-box;
+}
+
+.section{
+  grid-column: 2;
+  justify-self: start;
+  width: 100%;
+  padding: 0 2em;
+  box-sizing: border-box;
+  font-family: var(--font-product);
 }
