@@ -4,22 +4,24 @@ import styles from "../styles/Support.module.css";
 import GlobalContext from ".//../global/GlobalContext";
 import Image from "next/image";
 import React from "react";
+import { useSession } from "next-auth/react";
 
 const Support = () => {
   const { user } = React.useContext(GlobalContext);
   const [page, setPage] = React.useState(0);
+  const { data: session, status } = useSession();
   const support_options = [
     {
       name: "Site Bugs",
       icon:
-        user.display_mode === 0
+        session?.user.display_mode === 0
           ? "/icons/bugreport.png"
           : "/icons/lightmode/bugreport_white.png",
     },
     {
       name: "Products",
       icon:
-        user.display_mode === 0
+        session?.user.display_mode === 0
           ? "/icons/inventory.png"
           : "/icons/lightmode/inventory_white.png",
     },

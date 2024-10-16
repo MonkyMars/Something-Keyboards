@@ -1,47 +1,37 @@
 import Footer from "../../components/Footer";
 import styles from "../../styles/user/Login.module.css";
 import React from "react";
-import GlobalContext from "../../global/GlobalContext";
+import { signIn } from "next-auth/react";  // Import signIn from NextAuth
 import { useRouter } from "next/router";
 
 export default function Login() {
   const router = useRouter();
-  const { user, setUser } = React.useContext(GlobalContext);
-  const [formPage, setFormPage] = React.useState(0);
+  const [formPage, setFormPage] = React.useState(0);  // 0 = login, 1 = sign-up, 2 = sign-up complete
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
     first_name: "",
     last_name: "",
-    display_mode: 0,
   });
-
-  React.useEffect(() => {
-    if (user.email) {
-      router.push('/user/account');
-    }
-  }, [user.email, router]);
+  const [errorMessage, setErrorMessage] = React.useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");  // Clear any existing errors
+
     try {
       if (formPage === 0) {
-        const response = await fetch("/api/user", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: formData.email,
-            password: formData.password,
-          }),
+        // handle login
+        const result = await signIn("credentials", {
+          redirect: false,  // Prevent redirect for handling error messages
+          email: formData.email,
+          password: formData.password,
         });
-
-        if (response.ok) {
-          setUser(formData);
-          router.push("/user/account");
+        localStorage.setItem('session', result)
+        if (!result.ok) {
+          setErrorMessage(result.error);  // Set any error message
         } else {
-          window.alert("Login failed");
+          router.push("/user/account");  // Redirect to the user account page on success
         }
       } else if (formPage === 2 && formData) {
         const response = await fetch("/api/user", {
@@ -51,20 +41,20 @@ export default function Login() {
           },
           body: JSON.stringify(formData),
         });
-
+        console.log(response, await response.json())
         if (response.ok) {
-          setUser(formData);
-          router.push("/user/account");
+          
         } else {
-          window.alert("Sign up failed");
+          setErrorMessage("Sign-up failed");
         }
-      } else if(formPage === 1){
-        if(formData.email && formData.password) {
-          setFormPage(2)
+      } else if (formPage === 1) {
+        if (formData.email && formData.password) {
+          setFormPage(2);
         }
       }
     } catch (error) {
       console.error(error);
+      setErrorMessage("An error occurred");
     }
   };
 
@@ -73,20 +63,10 @@ export default function Login() {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const toggleDisplayMode = () => {
-    setUser((prevUser) => ({
-      ...prevUser,
-      display_mode: user.display_mode === 1 ? 0 : 1,
-    }));
-  };
-
   return (
     <>
       <nav className={styles.Nav}>
         <h2 onClick={() => router.push("/")}>{"Something"}</h2>
-        <div onClick={toggleDisplayMode}>
-          {user.display_mode === 1 ? "Dark" : "Light"}
-        </div>
       </nav>
       <main className={styles.mainContainer}>
         <form onSubmit={handleSubmit}>
@@ -109,6 +89,7 @@ export default function Login() {
                 name="password"
                 onChange={handleInputChange}
               />
+              {errorMessage && <p>{errorMessage}</p>}
             </>
           )}
           {formPage === 1 && (
@@ -153,7 +134,7 @@ export default function Login() {
               />
             </>
           )}
-          <button type="submit">{formPage === 1 ? 'Continue' :"Submit"}</button>
+          <button type="submit">{formPage === 1 ? 'Continue' : "Submit"}</button>
           <label onClick={() => setFormPage(formPage === 0 ? 1 : 0)}>
             {formPage === 0
               ? "Don't have an account? Create one!"

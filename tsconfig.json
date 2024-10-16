@@ -22,7 +22,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "pages/index.jsx"  ],
+, "pages/index.jsx", "pages/api/display_mode.js"  ],
   "exclude": [
     "node_modules"
   ]

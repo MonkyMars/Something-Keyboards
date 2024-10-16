@@ -6,36 +6,67 @@ import Image from "next/image";
 import styles from "../../styles/user/Account.module.css";
 import GlobalContext from '../../global/GlobalContext';
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+
 const Account = () => {
   const router = useRouter();
+  const { data: session, status } = useSession();
   const [page, setPage] = React.useState(0);
   const [visible, setVisible] = React.useState(null);
   const { user, setUser } = React.useContext(GlobalContext);
 
   const account_settings = [
-    { name: "Account Details", icon: user.display_mode === 0 ? "/icons/account.png" : "/icons/lightmode/account_white.png" },
-    { name: "Delivery Addresses", icon: user.display_mode === 0 ? "/icons/package.png" : "/icons/lightmode/package_white.png" },
-    { name: "Payment Methods", icon: user.display_mode === 0 ? "/icons/creditcard.png" : "/icons/lightmode/creditcard_white.png" },
-    { name: "Preferences", icon: user.display_mode === 0 ? "/icons/settings-acc.png" : "/icons/lightmode/settings_acc_white.png"},
-    { name: "Display", icon: user.display_mode === 0 ? "/icons/display.png" : "/icons/lightmode/display_white.png" },
+    { name: "Account Details", icon: session.user.display_mode === 0 ? "/icons/account.png" : "/icons/lightmode/account_white.png" },
+    { name: "Delivery Addresses", icon: session.user.display_mode === 0 ? "/icons/package.png" : "/icons/lightmode/package_white.png" },
+    { name: "Payment Methods", icon: session.user.display_mode === 0 ? "/icons/creditcard.png" : "/icons/lightmode/creditcard_white.png" },
+    { name: "Preferences", icon: session.user.display_mode === 0 ? "/icons/settings-acc.png" : "/icons/lightmode/settings_acc_white.png"},
+    { name: "Display", icon: session.user.display_mode === 0 ? "/icons/display.png" : "/icons/lightmode/display_white.png" },
   ];
 
   React.useEffect(() => {
-    if (!user.email) {
-      router.push('/user/login');
+    if (status === "unauthenticated") {
+      router.push("/login");
     }
-  }, [user.email, router]);
-  
+    console.log(session.user)
+  }, [status, router, session]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUser((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const toggleDisplayMode = (mode) => {
-    setUser((prevUser) => ({ ...prevUser, display_mode: mode }));
-    handleSubmit();
+  const toggleDisplayMode = async (mode) => {
+    // Update the user state first
+    console.log('mode', session.user.display_mode, mode)
+    try {
+      // Update display mode in the database
+      const response = await fetch("/api/display_mode", {
+        method: "PATCH", // Use PATCH for partial updates
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: session.user.id, mode: mode }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to update display mode in the database");
+      }
+  
+      // After updating the database, update the session
+      const updatedSession = await fetch("/api/auth/session"); 
+      if (updatedSession.ok) {
+        const updatedUser = await updatedSession.json();
+        console.log(updatedUser.user.display_mode)
+        setUser((prevUser) => ({ ...prevUser, display_mode: mode }));
+      }
+    } catch (error) {
+      console.error(error);
+    } finally{
+      console.log('final', session.user.display_mode, mode)
+    }
   };
+  
 
   const handleAddAddress = () => {
     // Add logic to save new address
@@ -55,8 +86,9 @@ const Account = () => {
     setVisible(null);
   };
 
-  const handleSubmit = async () => {
-    try {
+  const handleSubmit = async (page) => {
+    if(!page === 4) {
+      try {
       const response = await fetch('/api/user', {
         method: 'PUT',
         headers: {
@@ -74,9 +106,10 @@ const Account = () => {
     } catch (error) {
       console.error("Request failed:", error);
     }
+    }
   };
   
-
+  console.log(session.user)
   return (
     <>
       <Head>
@@ -109,13 +142,13 @@ const Account = () => {
 
         <section className={styles.section}>
           <h2>{account_settings[page].name}</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={() => handleSubmit(page)}>
             {page === 0 && (
               <div className={styles.userInformation}>
                 <label>Email:</label>
                 <input
                   placeholder="Email..."
-                  value={user.email}
+                  value={session.user.email}
                   name="email"
                   onChange={handleInputChange}
                 />
@@ -124,7 +157,7 @@ const Account = () => {
                     <label>First name:</label>
                     <input
                       placeholder="First name..."
-                      value={user.first_name}
+                      value={session.user.first_name.charAt(0).toUpperCase() + session.user.first_name.slice(1)}
                       name="first_name"
                       onChange={handleInputChange}
                     />
@@ -133,7 +166,7 @@ const Account = () => {
                     <label>Last name:</label>
                     <input
                       placeholder="Last name..."
-                      value={user.last_name}
+                      value={session.user.last_name.charAt(0).toUpperCase() + session.user.last_name.slice(1)}
                       name="last_name"
                       onChange={handleInputChange}
                     />
@@ -143,7 +176,7 @@ const Account = () => {
                 <input
                   type="password"
                   placeholder="Password..."
-                  value={user.password}
+                  value={session.user.password}
                   name="password"
                   onChange={handleInputChange}
                 />
@@ -287,5 +320,22 @@ const Account = () => {
     </>
   );
 };
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/user/login',  // Redirect to login if not authenticated
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
 
 export default Account;

@@ -4,9 +4,11 @@ import styles from "../styles/components/Nav.module.css";
 import Image from "next/image";
 import { useRouter } from 'next/router'; 
 import GlobalContext from '../global/GlobalContext';
+import { useSession } from "next-auth/react";
 
 export default function Nav() {
   const { user, cart, cartCount } = React.useContext(GlobalContext);
+  const { data: session, status } = useSession();
   const [search, setSearch] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const router = useRouter();  
@@ -40,7 +42,7 @@ export default function Nav() {
   };
 
   const handleIconHref = (alt, href) => {
-    if(alt === 'User' && user.email) {
+    if(alt === 'User' && status === 'authenticated') {
       return href;
     } else if(alt !== 'User') {
       return href;

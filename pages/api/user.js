@@ -51,7 +51,7 @@ export default async function user(req, res) {
     }
   } else if (req.method === "PUT") {
     try {
-      const { email, password, first_name, last_name, delivery_addresses, payment_methods, display_mode } = req.body;
+      const { email, password, first_name, last_name, delivery_addresses, payment_methods } = req.body;
 
       console.log(email)
       const { data: existingUser, error: fetchError } = await supabase
@@ -60,7 +60,7 @@ export default async function user(req, res) {
         .ilike("email", email);
 
       if (fetchError || existingUser.length === 0) {
-        return res.status(404).json({ error: "User not found or error fetching data", fetchError });
+        return res.status(404).json({ error: "User not found or error fetching data", fetchError, existingUser });
       }
 
       let hashedPassword = existingUser[0].password;
@@ -70,7 +70,7 @@ export default async function user(req, res) {
 
       const { error: updateError } = await supabase
         .from("users")
-        .update({ email, password: hashedPassword, first_name, last_name, delivery_addresses, payment_methods, display_mode })
+        .update({ email, password: hashedPassword, first_name, last_name, delivery_addresses, payment_methods })
         .eq("email", email);
 
       if (updateError) {
