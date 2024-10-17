@@ -19,7 +19,6 @@ export default NextAuth({
           .from("users")
           .select("*")
           .ilike("email", email);
-        console.log('user', user)
         if (error || user.length === 0) {
           throw new Error("Invalid credentials");
         }
@@ -29,7 +28,6 @@ export default NextAuth({
           throw new Error("Invalid credentials");
         }
 
-        // Return user object on success
         return {
           id: user[0].id,
           email: user[0].email,
