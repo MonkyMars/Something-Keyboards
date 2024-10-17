@@ -52,7 +52,7 @@ const UserEffect = () => {
 
   useEffect(() => {
     const root = document.documentElement;
-    if (session?.user.display_mode) {
+    if (session && session?.user.display_mode) {
       root.style.setProperty(
         "--Bg",
         session.user.display_mode === 1 ? "#272727" : "#e3e3e3"
