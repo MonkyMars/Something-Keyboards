@@ -12,7 +12,6 @@ export default NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // Check if user exists in Supabase
         const { email, password } = credentials;
 
         const { data: user, error } = await supabase
@@ -44,7 +43,6 @@ export default NextAuth({
   },
   callbacks: {
     async jwt({ token, user }) {
-      // If user is found, add details to the token
       if (user) {
         token.id = user.id;
         token.email = user.email;
