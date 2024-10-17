@@ -25,8 +25,8 @@ export default function Nav() {
       {
         src:
           session?.user.display_mode === 0
-            ? "/icons/search.png"
-            : "/icons/lightmode/search_white.png",
+            ? "/icons/search_grey.png"
+            : "/icons/search_grey.png", // experimenting with grey icons (would be able to remove all icon logic with display mode)
         alt: "Search",
         href: "#",
       },
