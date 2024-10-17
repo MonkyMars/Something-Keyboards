@@ -17,7 +17,7 @@ export default function Checkout() {
     { id: 1, name: "Standard", duration: "5 business days", price: 0 },
     { id: 2, name: "Premium", duration: "1-2 business days", price: 1.99 },
   ];
-  const { user, cart, products, setCart } = React.useContext(GlobalContext);
+  const { cart, products, setCart } = React.useContext(GlobalContext);
   const [formData, setFormData] = React.useState({
     fullname: session?.user 
       ? `${session.user.first_name ? session.user.first_name.charAt(0).toUpperCase() + session.user.first_name.slice(1) : ''} ${session.user.last_name ? session.user.last_name.charAt(0).toUpperCase() + session.user.last_name.slice(1) : ''}`
@@ -74,13 +74,6 @@ export default function Checkout() {
   };
 
   React.useEffect(() => {
-    if (user.email) {
-      setFormData(user);
-    }
-    console.log(user.address, user.zipCode, user.country);
-  }, [user]);
-
-  React.useEffect(() => {
     type Icons = {
       src: string
     }
@@ -94,7 +87,7 @@ export default function Checkout() {
       },
     ];
     setIcons(icons);
-  }, [user.display_mode]);
+  }, [session?.user.display_mode]);
 
   React.useEffect(() => {
     if (!cart) {
@@ -248,11 +241,11 @@ export default function Checkout() {
                   placeholder="CVC"
                   onChange={handleCVCChange}
                 />
-                {user.payment_methods && (
+                {session?.user.payment_methods && (
                   <div>
                     <label>{"Or select from added payment methods:"}</label>
                     <select>
-                      {user.payment_methods?.map(
+                      {session?.user.payment_methods?.map(
                         (method: any, index: number) => (
                           <option key={index}>{method.name}</option>
                         )

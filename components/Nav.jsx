@@ -2,8 +2,8 @@ import React from "react";
 import Link from "next/link";
 import styles from "../styles/components/Nav.module.css";
 import Image from "next/image";
-import { useRouter } from 'next/router'; 
-import GlobalContext from '../global/GlobalContext';
+import { useRouter } from "next/router";
+import GlobalContext from "../global/GlobalContext";
 import { useSession } from "next-auth/react";
 
 export default function Nav() {
@@ -11,49 +11,68 @@ export default function Nav() {
   const { data: session, status } = useSession();
   const [search, setSearch] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
-  const router = useRouter();  
-  const [icons, setIcons] = React.useState([])
+  const router = useRouter();
+  const [icons, setIcons] = React.useState([]);
   const pages = [
     { name: "Home", url: "/" },
     { name: "Products", url: "/products" },
     { name: "Support", url: "/support" },
     { name: "About", url: "/about" },
   ];
-  
+
   React.useEffect(() => {
-    const root = document.documentElement;
     const icons = [
-    { src: root.style.getPropertyValue('--Bg') === '#e3e3e3' ? "/icons/search.png" : '/icons/lightmode/search_white.png', alt: "Search", href: "#" },
-    { src: root.style.getPropertyValue('--Bg') === '#e3e3e3' ? "/icons/shoppingcart.png" : '/icons/lightmode/shoppingcart_white.png', alt: "Cart", href: "/cart" },
-    { src: root.style.getPropertyValue('--Bg') === '#e3e3e3' ? "/icons/account.png" : '/icons/lightmode/account_white.png', alt: "User", href: "/user/account" },
+      {
+        src:
+          session?.user.display_mode === 0
+            ? "/icons/search.png"
+            : "/icons/lightmode/search_white.png",
+        alt: "Search",
+        href: "#",
+      },
+      {
+        src:
+          session?.user.display_mode === 0
+            ? "/icons/shoppingcart.png"
+            : "/icons/lightmode/shoppingcart_white.png",
+        alt: "Cart",
+        href: "/cart",
+      },
+      {
+        src:
+          session?.user.display_mode === 0
+            ? "/icons/account.png"
+            : "/icons/lightmode/account_white.png",
+        alt: "User",
+        href: "/user/account",
+      },
     ];
     setIcons(icons);
-  }, [user.display_mode])
-  
+  }, [session?.user.display_mode, session, session?.user]);
 
   const toggleSearch = () => {
     setSearch((prev) => !prev);
   };
 
   const handleSearch = (e) => {
-    if (e.key === 'Enter' && searchTerm) {
+    if (e.key === "Enter" && searchTerm) {
       router.push(`/products?query=${searchTerm}`);
     }
   };
 
   const handleIconHref = (alt, href) => {
-    if(alt === 'User' && status === 'authenticated') {
+    if (alt === "User" && status === "authenticated") {
       return href;
-    } else if(alt !== 'User') {
+    } else if (alt !== "User") {
       return href;
     } else {
-      return '/user/login'
+      return "/user/login";
     }
-  }
+  };
 
   return (
     <nav className={styles.Nav}>
-      <h2 onClick={() => router.push('/')}>Something</h2>
+      <h2 onClick={() => router.push("/")}>Something</h2>
       <ul>
         {pages.map((page) => (
           <li key={page.url}>
@@ -67,12 +86,13 @@ export default function Nav() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search..."
-          style={{ width: search ? "200px" : "0", padding: !search && "0.6em 0" }}
+          style={{
+            width: search ? "200px" : "0",
+            padding: !search && "0.6em 0",
+          }}
           onKeyDown={handleSearch}
         />
-        <div>
-          
-        </div>
+        <div></div>
         {icons.map((icon) => (
           <Link
             key={icon.alt}
@@ -87,7 +107,9 @@ export default function Nav() {
               height={30}
               aria-label={icon.alt}
             />
-            {icon.href === '/cart' && <div className={styles.cartCount}>{cart.length || cartCount}</div>}
+            {icon.href === "/cart" && (
+              <div className={styles.cartCount}>{cart.length || cartCount}</div>
+            )}
           </Link>
         ))}
       </div>

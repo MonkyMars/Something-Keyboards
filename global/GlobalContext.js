@@ -71,7 +71,6 @@ export const GlobalProvider = ({ children }) => {
     delivery_addresses: [
       { address: '', zipCode: '', country: '' }
     ],
-    display_mode: 0,
   });
 
   return (

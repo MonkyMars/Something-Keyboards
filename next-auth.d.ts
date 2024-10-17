@@ -7,6 +7,8 @@ declare module "next-auth" {
       last_name: string;
       email: string;
       display_mode: number;
+      payment_methods: [],
+      delivery_addresses: [],
     };
   }
 }
