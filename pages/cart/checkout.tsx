@@ -7,17 +7,20 @@ import Head from "next/head";
 import GlobalContext from "../../global/GlobalContext";
 import { useRouter } from "next/router";
 import Map from "../../components/Map";
+import { useSession } from "next-auth/react";
 
 export default function Checkout() {
   const router = useRouter();
+  const { data: session, status } = useSession();
+
   const delivery_options = [
     { id: 1, name: "Standard", duration: "5 business days", price: 0 },
     { id: 2, name: "Premium", duration: "1-2 business days", price: 1.99 },
   ];
   const { user, cart, products, setCart } = React.useContext(GlobalContext);
   const [formData, setFormData] = React.useState({
-    fullname: "",
-    email: "",
+    fullname: session?.user ? `${`${session.user.first_name.charAt(0).toUpperCase() + session.user.first_name.slice(1)} ${session.user.last_name.charAt(0).toUpperCase() + session.user.last_name.slice(1)}`}` : '',
+    email: session?.user ? `${`${session.user.email}`}` : '',
     address: "",
     country: "",
     zipCode: "",
