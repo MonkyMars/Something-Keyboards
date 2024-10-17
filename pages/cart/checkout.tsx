@@ -19,8 +19,10 @@ export default function Checkout() {
   ];
   const { user, cart, products, setCart } = React.useContext(GlobalContext);
   const [formData, setFormData] = React.useState({
-    fullname: session?.user ? `${`${session.user.first_name.charAt(0).toUpperCase() + session.user.first_name.slice(1)} ${session.user.last_name.charAt(0).toUpperCase() + session.user.last_name.slice(1)}`}` : '',
-    email: session?.user ? `${`${session.user.email}`}` : '',
+    fullname: session?.user 
+      ? `${session.user.first_name ? session.user.first_name.charAt(0).toUpperCase() + session.user.first_name.slice(1) : ''} ${session.user.last_name ? session.user.last_name.charAt(0).toUpperCase() + session.user.last_name.slice(1) : ''}`
+      : '',
+    email: session?.user?.email || '', // Use optional chaining to access email
     address: "",
     country: "",
     zipCode: "",
@@ -31,6 +33,7 @@ export default function Checkout() {
       credit_cvc: "",
     },
   });
+  
   const [icons, setIcons] = React.useState<{ src: string }[]>([]);
   const [formPage, setFormPage] = React.useState(0);
 

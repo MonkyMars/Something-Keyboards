@@ -137,7 +137,7 @@ const Account = () => {
                 <label>Email:</label>
                 <input
                   placeholder="Email..."
-                  value={session.user.email}
+                  value={session?.user ? session.user.email : ''}
                   name="email"
                   onChange={handleInputChange}
                 />
@@ -146,7 +146,9 @@ const Account = () => {
                     <label>First name:</label>
                     <input
                       placeholder="First name..."
-                      value={session.user.first_name.charAt(0).toUpperCase() + session.user.first_name.slice(1)}
+                      value={session?.user 
+                        ? `${session.user.first_name ? session.user.first_name.charAt(0).toUpperCase() + session.user.first_name.slice(1) : ''}`
+                        : ''}
                       name="first_name"
                       onChange={handleInputChange}
                     />
@@ -155,7 +157,9 @@ const Account = () => {
                     <label>Last name:</label>
                     <input
                       placeholder="Last name..."
-                      value={session.user.last_name.charAt(0).toUpperCase() + session.user.last_name.slice(1)}
+                      value={session?.user 
+                        ? `${session.user.last_name ? session.user.last_name.charAt(0).toUpperCase() + session.user.last_name.slice(1) : ''}`
+                        : ''}
                       name="last_name"
                       onChange={handleInputChange}
                     />
