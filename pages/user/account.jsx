@@ -6,8 +6,7 @@ import Image from "next/image";
 import styles from "../../styles/user/Account.module.css";
 import GlobalContext from '../../global/GlobalContext';
 import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession, getSession } from "next-auth/react";
 
 const Account = () => {
   const router = useRouter();
@@ -28,7 +27,6 @@ const Account = () => {
     if (status === "unauthenticated") {
       router.push("/login");
     }
-    console.log(session.user)
   }, [status, router, session]);
 
   const handleInputChange = (e) => {
@@ -37,33 +35,26 @@ const Account = () => {
   };
 
   const toggleDisplayMode = async (mode) => {
-    // Update the user state first
-    console.log('mode', session.user.display_mode, mode)
     try {
-      // Update display mode in the database
       const response = await fetch("/api/display_mode", {
-        method: "PATCH", // Use PATCH for partial updates
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: session.user.id, mode: mode }),
+        body: JSON.stringify({ id: session.user.id, mode: mode}),
       });
-  
       if (!response.ok) {
         throw new Error("Failed to update display mode in the database");
       }
-  
-      // After updating the database, update the session
+      const data = await response.json();
       const updatedSession = await fetch("/api/auth/session"); 
       if (updatedSession.ok) {
         const updatedUser = await updatedSession.json();
-        console.log(updatedUser.user.display_mode)
         setUser((prevUser) => ({ ...prevUser, display_mode: mode }));
+        session.user.display_mode = data.user[0].display_mode;
       }
     } catch (error) {
       console.error(error);
-    } finally{
-      console.log('final', session.user.display_mode, mode)
     }
   };
   
@@ -108,8 +99,6 @@ const Account = () => {
     }
     }
   };
-  
-  console.log(session.user)
   return (
     <>
       <Head>
@@ -188,7 +177,7 @@ const Account = () => {
                 <button type="button" className={styles.addAddress} onClick={() => setVisible(1)}>
                   Add Address
                 </button>
-                {user.delivery_addresses?.map((address, index) => (
+                {session?.delivery_addresses?.map((address, index) => (
                   <div key={address.id || index} className={styles.address}>
                     <label>Country:</label>
                     <input value={address.country} readOnly />
@@ -216,8 +205,8 @@ const Account = () => {
                 <button type="button" onClick={() => setVisible(2)}>
                 {'Add Payment Method'}
                 </button>
-                {user.added_payment_methods?.length > 0 ? (
-                  user.added_payment_methods?.map((method, index) => (
+                {session?.user.added_payment_methods?.length > 0 ? (
+                  session?.user.added_payment_methods?.map((method, index) => (
                     <div key={index} className={styles.paymentMethod}>
                       <div>
                         <Image src={method.icon} alt={method.name} width={45} height={45} />
@@ -240,10 +229,10 @@ const Account = () => {
             {page === 4 && (
               <div className={styles.Display}>
                 <label>
-                  {`Current display mode: ${user.display_mode === 0 ? "Light" : "Dark"}mode`}
+                  {`Current display mode: ${session?.user.display_mode === 0 ? "Light" : "Dark"}mode`}
                 </label>
                 <div className={`${styles.container}`}>
-                <div onClick={() => toggleDisplayMode(0)} className={`${styles.lightmode} ${user.display_mode === 0 && styles.active}`} >
+                <div onClick={() => toggleDisplayMode(0)} className={`${styles.lightmode} ${session?.user.display_mode === 0 && styles.active}`} >
                   <Image
                     src="/icons/display.png"
                     alt="Light mode icon"
@@ -251,7 +240,7 @@ const Account = () => {
                     height={35}
                   />
                 </div>
-                <div onClick={() => toggleDisplayMode(1)} className={`${styles.darkmode} ${user.display_mode === 1 && styles.active}`}>
+                <div onClick={() => toggleDisplayMode(1)} className={`${styles.darkmode} ${session?.user.display_mode === 1 && styles.active}`}>
                   <Image
                     src="/icons/darkmode.png"
                     alt="Dark mode icon"
@@ -327,7 +316,7 @@ export async function getServerSideProps(context) {
   if (!session) {
     return {
       redirect: {
-        destination: '/user/login',  // Redirect to login if not authenticated
+        destination: '/user/login', 
         permanent: false,
       },
     };
