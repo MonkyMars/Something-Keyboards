@@ -162,3 +162,12 @@
     justify-content: center;
   }
 }
+
+.multi{
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  & > input{
+    width: 100% !important;
+  }
+}
