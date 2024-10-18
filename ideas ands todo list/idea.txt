@@ -1,1 +1,2 @@
 1. grey icons instead of display mode based ones (white and black)
+  - Added purple theme color icons instead for nav
