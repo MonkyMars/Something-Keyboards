@@ -1,6 +1,5 @@
 TO DO LIST:
 
-1. fixing display setting so display setting gets pulled from account
 2. improve session management
 3. fix checkout and validating forms + pre entering info (email, name etc)
 4. continue on support page
@@ -12,5 +11,6 @@ TO DO LIST:
 10. adding clear indicator when adding/removing products to/from cart 
 
 Done:
-  adding name etc to account details tab
-  fix error with switching display modes
+  adding name etc to account details tab (5 minutes)
+  fix error with switching display modes (2 hours)
+  fixing display setting so display setting gets pulled from account (5 hours)
