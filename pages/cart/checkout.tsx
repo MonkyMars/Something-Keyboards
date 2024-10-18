@@ -19,13 +19,25 @@ export default function Checkout() {
   ];
   const { cart, products, setCart } = React.useContext(GlobalContext);
   const [formData, setFormData] = React.useState({
-    fullname: session?.user 
-      ? `${session.user.first_name ? session.user.first_name.charAt(0).toUpperCase() + session.user.first_name.slice(1) : ''} ${session.user.last_name ? session.user.last_name.charAt(0).toUpperCase() + session.user.last_name.slice(1) : ''}`
-      : '',
-    email: session?.user?.email || '', // Use optional chaining to access email
-    address: "",
-    country: "",
-    zipCode: "",
+    fullname: session?.user
+      ? `${
+          session.user.first_name
+            ? session.user.first_name.charAt(0).toUpperCase() +
+              session.user.first_name.slice(1)
+            : ""
+        } ${
+          session.user.last_name
+            ? session.user.last_name.charAt(0).toUpperCase() +
+              session.user.last_name.slice(1)
+            : ""
+        }`
+      : "",
+    email: session?.user?.email || "",
+    address: {
+      street_name: "",
+      street_number: "",
+      city: "",
+    },
     delivery_option: 1,
     payment: {
       credit_number: "",
@@ -33,7 +45,7 @@ export default function Checkout() {
       credit_cvc: "",
     },
   });
-  
+
   const [icons, setIcons] = React.useState<{ src: string }[]>([]);
   const [formPage, setFormPage] = React.useState(0);
 
@@ -75,8 +87,8 @@ export default function Checkout() {
 
   React.useEffect(() => {
     type Icons = {
-      src: string
-    }
+      src: string;
+    };
     const root = document.documentElement;
     const icons: Icons[] = [
       {
@@ -111,6 +123,17 @@ export default function Checkout() {
         },
       }));
     }
+  };
+
+  const handleAddressChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      address: {
+        ...prevData.address,
+        [name]: value,
+      },
+    }));
   };
 
   const handlePaymentChange = (e: any) => {
@@ -166,15 +189,24 @@ export default function Checkout() {
                       required
                     />
                   </label>
-                  <label>
+                  <label className={styles.multi__label}>
                     Address:
-                    <input
-                      name="address"
-                      placeholder="Address"
-                      value={formData?.address}
-                      onChange={handleInputChange}
-                      required
-                    />
+                    <div className={styles.multi}>
+                      <input
+                        name="street_name"
+                        placeholder="Street Name"
+                        value={formData?.address.street_name}
+                        onChange={handleAddressChange}
+                        required
+                      />
+                      <input
+                        name="city"
+                        placeholder="City"
+                        value={formData?.address.city}
+                        onChange={handleAddressChange}
+                        required
+                      />
+                    </div>
                   </label>
                 </div>
 
@@ -262,12 +294,11 @@ export default function Checkout() {
               <>
                 <div className={styles.orderOverview}>
                   <Map
-                    address={formData?.address}
-                    zipCode={formData?.zipCode}
-                    country={formData?.country}
+                    address={`${formData?.address.street_name} ${formData?.address.street_number}`}
+                    city={formData?.address.city}
                   />
                   <label className={styles.address}>
-                    {formData.address}, {formData.country}
+                    {formData.address.street_name}, {formData.address.city}
                   </label>
                   <h1>{"Order overview"}</h1>
                   <div className={styles.account}>
@@ -280,7 +311,11 @@ export default function Checkout() {
                         1.{item.name} - ${item.price}
                       </label>
                     ))}
-                  <label>{formData.delivery_option === 1  ? 'Free Delivery - $0' : 'Premium Delivery - $1.99'}</label>
+                    <label>
+                      {formData.delivery_option === 1
+                        ? "Free Delivery - $0"
+                        : "Premium Delivery - $1.99"}
+                    </label>
                   </div>
                   <label className={styles.price}>
                     $
@@ -295,6 +330,7 @@ export default function Checkout() {
                   </label>
 
                   <button>{"Continue & Confirm"}</button>
+                  <button style={{backgroundColor: '#EA3323'}} onClick={() => setFormPage(0)}>{"Change & Correct"}</button>
                 </div>
               </>
             )}
@@ -305,5 +341,3 @@ export default function Checkout() {
     </>
   );
 }
-
-// 352.09
