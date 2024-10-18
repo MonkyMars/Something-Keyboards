@@ -70,7 +70,7 @@
   border-radius: 15px;
   font-family: var(--font-product);
   cursor: pointer;
-  transition: all 0.3s ease; /* Smooth transition */
+  transition: all 0.3s ease;
   bottom: 35px;
 }
 
@@ -79,17 +79,15 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Main layout grid */
 .main {
   width: 100%;
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 400px; /* Side-by-side layout for larger screens */
+  grid-template-columns: 1fr 400px;
   gap: 1em;
   align-items: center;
 }
 
-/* Media Queries for Responsiveness */
 @media screen and (max-width: 1080px) {
   .product {
     max-width: 95%;
