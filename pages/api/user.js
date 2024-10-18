@@ -53,7 +53,6 @@ export default async function user(req, res) {
     try {
       const { email, password, first_name, last_name, delivery_addresses, payment_methods } = req.body;
 
-      console.log(email)
       const { data: existingUser, error: fetchError } = await supabase
         .from("users")
         .select("*")
@@ -89,14 +88,12 @@ export default async function user(req, res) {
           .from("users")
           .select("*")
           .ilike("email", email);
-      console.log(user)
       if(user) {
         return res.status(200).json(user);
       } else {
         return res.status(404).json({ error: "User not logged in"})
       }
     } catch(error) {
-      console.log(error)
       return res.status(500).json({ error: "Internal server error", details: error.message})
     }
     
