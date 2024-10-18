@@ -23,7 +23,8 @@
     "fullname",
     "lightmode",
     "shoppingcart",
-    "supabase"
+    "supabase",
+    "zipcode"
   ]
 }
 
