@@ -23,26 +23,17 @@ export default function Nav() {
   React.useEffect(() => {
     const icons = [
       {
-        src:
-          session?.user.display_mode === 0
-            ? "/icons/search_grey.png"
-            : "/icons/search_grey.png", // experimenting with grey icons (would be able to remove all icon logic with display mode)
+        src: "/icons/neutral/search.png", // experimenting with grey icons (would be able to remove all icon logic with display mode)
         alt: "Search",
         href: "#",
       },
       {
-        src:
-          session?.user.display_mode === 0
-            ? "/icons/shoppingcart.png"
-            : "/icons/lightmode/shoppingcart_white.png",
+        src: "/icons/neutral/shoppingcart.png",
         alt: "Cart",
         href: "/cart",
       },
       {
-        src:
-          session?.user.display_mode === 0
-            ? "/icons/account.png"
-            : "/icons/lightmode/account_white.png",
+        src: "/icons/neutral/account.png",
         alt: "User",
         href: "/user/account",
       },
