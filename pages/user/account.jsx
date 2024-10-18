@@ -3,7 +3,7 @@ import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
 import Head from "next/head";
 import Image from "next/image";
-import styles from "../../styles/user/Account.module.css";
+import styles from "../../styles/user/Account.module.scss";
 import { signOut, useSession, getSession } from "next-auth/react";
 
 const Account = () => {
@@ -11,6 +11,9 @@ const Account = () => {
   const [page, setPage] = React.useState(0);
   const [visible, setVisible] = React.useState(null);
   const [account_settings, setAccount_settings] = React.useState([]);
+  const [countries, setCountries] = React.useState([
+    {name: 's'}
+  ]);
   const [user, setUser] = React.useState({
     first_name: "",
     last_name: "",
@@ -133,6 +136,22 @@ const Account = () => {
       }
     }
   };
+
+  React.useEffect(() => {
+    const fetchCountries = async() => {
+      const result = await fetch('https://restcountries.com/v3.1/independent?status=true', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      const data = await result.json();
+      console.log(data)
+      setCountries(data)
+    };
+    fetchCountries();
+  }, [])
+
   return (
     <>
       <Head>
@@ -344,19 +363,29 @@ const Account = () => {
                 </div>
                 <div>
                   <label>Country:</label>
-                  <input />
+                  <input list="countries"/>
+                  <datalist id="countries">
+                  <option></option>
+                    {countries && countries?.map((country, id) => (
+                      <>
+                      <option key={id} value={country.name.common}>{country.name.common}</option>
+                      </>
+                    ))}
+                  </datalist>
                   <label>City:</label>
-                  <input />
+                  <input type="text"/>
                   <label>Postal code:</label>
-                  <input />
+                  <input type="text"/>
+                  <div className={styles.street__label}>
+                    <label>{'Street Name:'}</label>
+                    <label>{'Street Number:'}</label>
+                  </div>
                   <div>
                     <div>
-                      <label>Street name:</label>
-                      <input />
+                      <input type="text" className={styles.street__name}/>
                     </div>
                     <div>
-                      <label>Street number:</label>
-                      <input />
+                      <input type="text" className={styles.street__number} />
                     </div>
                   </div>
                   <button onClick={handleAddAddress}>Save Address</button>
@@ -384,6 +413,9 @@ const Account = () => {
             )}
           </div>
         )}
+        <datalist id='countries'>
+          <option value={'NL'}>{'Netherlands'}</option>
+        </datalist>
       </main>
       <Footer />
     </>
