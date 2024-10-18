@@ -15,12 +15,12 @@ const getCoordinates = async (address) => {
   return data.length ? { lat: data[0].lat, lng: data[0].lon } : null;
 };
 
-const Map = ({ address, country, zipCode }) => {
+const Map = ({ address, city }) => {
   const [position, setPosition] = useState(null);
 
   useEffect(() => {
     const fetchCoordinates = async () => {
-      const fullAddress = `${address}, ${country}, ${zipCode}`;
+      const fullAddress = `${address}, ${city}`;
       const coords = await getCoordinates(fullAddress);
       if (coords) {
         setPosition([coords.lat, coords.lng]);
@@ -28,7 +28,7 @@ const Map = ({ address, country, zipCode }) => {
     };
 
     fetchCoordinates();
-  }, [address, country, zipCode]);
+  }, [address, city]);
 
   useEffect(() => {
     import('leaflet').then(L => {
@@ -53,7 +53,7 @@ const Map = ({ address, country, zipCode }) => {
       />
       <Marker position={position}>
         <Popup>
-          {address}, {country} {zipCode}
+          {address}, {city}
         </Popup>
       </Marker>
     </MapContainer>
