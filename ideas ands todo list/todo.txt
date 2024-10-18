@@ -9,7 +9,8 @@ TO DO LIST:
 8. adding payment methods to account
 9. adding more products
 10. adding clear indicator when adding/removing products to/from cart 
-
+11. adding data list for country select
+  - did for account[delivery_addresses], not checkout
 Done:
   adding name etc to account details tab (5 minutes)
   fix error with switching display modes (2 hours)
