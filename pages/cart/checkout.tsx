@@ -51,20 +51,20 @@ export default function Checkout() {
 
   React.useEffect(() => {
     const fetchCart = async () => {
-      const response = await fetch("/api/cart", {
+      const response = await fetch(`/api/cart/?=${session?.user?.id || 0}`, {
         method: "GET",
       });
 
       const data = await response.json();
 
-      if (!Array.isArray(data.cart)) {
-        console.error("Cart data is not an array:", data.cart);
-        return;
-      }
+      // if (!Array.isArray(data.cart)) {
+      //   console.error("Cart data is not an array:", data.cart);
+      //   return;
+      // }
 
       const foundProducts: any = [];
 
-      data.cart.forEach((cartItem: any) => {
+      data?.cart?.forEach((cartItem: any) => {
         const productIds = cartItem.product_id.split(",");
 
         productIds.forEach((id: any) => {
@@ -79,7 +79,7 @@ export default function Checkout() {
     };
 
     fetchCart();
-  }, []);
+  }, [formPage]);
 
   const getProductById = (productId: number) => {
     return products.find((product: any) => product.id === productId) || null;

@@ -5,12 +5,14 @@ import styles from '../../styles/ProductPage.module.css';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import Head from 'next/head';
+import { useSession } from "next-auth/react";
 
 const ProductPage = ({ params }) => {
   const { products, setCartCount, cartCount } = useContext(GlobalContext);
   const [filteredProduct, setFilteredProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [time, setTime] = useState(0);
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -37,7 +39,7 @@ const ProductPage = ({ params }) => {
     const productToAdd = products.find(product => product.id === id);
   
     if (productToAdd) {
-      const user_id = 1;
+      const user_id = session?.user?.id || 0;
       try {
         const response = await fetch('/api/cart', {
           method: "POST",

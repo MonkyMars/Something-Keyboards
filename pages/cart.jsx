@@ -6,7 +6,9 @@ import styles from '../styles/Cart.module.css';
 import GlobalContext from '../global/GlobalContext';
 import ProductCart from '../components/ProductCart';
 import { useRouter } from 'next/router';
+import { useSession } from "next-auth/react";
 const Cart = () => {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [totals, setTotals] = React.useState({
     subtotal: 0.00,
@@ -41,7 +43,7 @@ const Cart = () => {
 
   React.useEffect(() => {
     const fetchCart = async () => {
-      const response = await fetch('/api/cart', {
+      const response = await fetch(`/api/cart/?user_id=${session?.user?.id || 0}`, {
         method: 'GET',
       });
   
