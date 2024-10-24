@@ -43,7 +43,7 @@ export default function Login() {
         });
         console.log(response, await response.json())
         if (response.ok) {
-          
+          router.push(' /user/account')
         } else {
           setErrorMessage("Sign-up failed");
         }
